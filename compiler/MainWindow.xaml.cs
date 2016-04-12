@@ -10,14 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Concrete.Syntactycal;
 using MahApps.Metro.Controls;
 using System.IO;
@@ -36,9 +28,6 @@ namespace compiler {
         private void submit_Click(object sender, RoutedEventArgs e) {
             string textFile = this.textBlock7.Text;
 
-            Stopwatch sw = new Stopwatch();
-
-            sw.Start();
             try {
                 Concrete.TableSpace.Table[] tables = new Concrete.TableSpace.Table[] {
                 new MultySymbolSeparatorsTable(),
@@ -51,6 +40,9 @@ namespace compiler {
                     textBlock3.Text = textBlock4.Text =
                         textBlock5.Text = textBlock6.Text = "";
 
+                Stopwatch sw = new Stopwatch();
+
+                sw.Start();
                 List<Lexem> list = Parser.ParseFile(textFile, tables, this.textBlock5);
                 sw.Stop();
 
@@ -68,21 +60,17 @@ namespace compiler {
 
                 SyntacticalParser.SetTables(tables);
 
-                List<int> list1 = new List<int>();
-                foreach (var item in list)
-                    list1.Add(item.code);
+                List<int> list1 = new List<int>(from p in list select p.code);
 
                 bool Parsed = SyntacticalParser.Start(list1, syntacticalWindow.textBox1);
 
                 syntacticalWindow.Show();
 
                 if (Parsed) {
-                    //Console.WriteLine("All OK");
                     using (System.IO.StreamWriter file = new System.IO.StreamWriter(textFile.Split('.')[0] + ".ddt"))
                         file.WriteLine(SyntacticalParser.StackTrace);
                 }
                 else {
-                    //Console.WriteLine("Error in line " + list[SyntacticalParser.Index].line + ", position " + list[SyntacticalParser.Index].pos);
                     syntacticalWindow.textBox1.Text = "Error in line " + list[SyntacticalParser.Index].line + ", position " + list[SyntacticalParser.Index].pos;
                 }
             }

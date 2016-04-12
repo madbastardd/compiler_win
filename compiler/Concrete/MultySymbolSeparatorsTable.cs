@@ -11,7 +11,6 @@ namespace Concrete.MultySymbolSeparatorsTableSpace {
             this.Insert("<=");
             this.Insert("<>");
             this.Insert(">=");
-            this.Insert(":=");
         }
         public override void Insert(string _value) {
             base.Insert(_value);

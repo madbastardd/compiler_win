@@ -2,5 +2,11 @@ PROGRAM test1;
 BEGIN
 	0 > 1 AND 2 < 3 AND
 	4 < 5 OR 6 > a AND
-	(5 + 30) <= 4 * 20 AND 2 > 3#-3
+	(5 + 30) <= 4 * 20 AND 2 * 3 MOD 6 > 3#-3 OR
+	5 * 7 >= AND NOT [5 + 3, 6 / 4] < 3#6 AND
+	[5 > 11 OR 8 = 9] AND
+	a > -b OR ^c < a AND
+	"7 + 5, 9 + 2" < '8 + 2 $EXP(2 + 3)' AND
+	2 + 3 <> 4 & '10 + '11 + b', 2 ! ",13 MOD 12 * 2"'
+
 END.

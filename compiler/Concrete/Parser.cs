@@ -134,8 +134,6 @@ namespace Concrete.Parser {
 				//it is separator
 				result.Add(new Lexem('(', lineNumber, position));
 				position = ++curPos;
-
-				readedSymbol = sr.Read ();
 			}
 			lineNumber = curLine;
 			position = curPos;
