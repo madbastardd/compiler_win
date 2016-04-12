@@ -1,0 +1,34 @@
+(*TEST PROGRAM*)
+PROGRAM testProgram;
+
+(*CONST
+	c1 = 200;
+	c2 = -30;
+	c3 = 
+VAR
+	a: SIGNAL;
+	b: COMPLEX;
+	c: INTEGER;
+	d: FL>OAT;
+	ff: BLOCKFLOAT;
+	ex: EXT;
+PROCEDURE proc1()*)
+
+BEGIN
+	30 OR 40
+	40 AND 100 OR 20 + 60
+	30 > 20 AND 7 * 6
+	40 AND NOT 5
+	'40,50'
+	"50$EXP(70 - 20)"
+	"20"
+	30 ! 20 AND 80
+	20 <> 70
+	100 / 50
+	30 && 8
+	40 MOD 20
+	a 20
+	-20#+3
+	(*this is big ))))))))))********** comment *)
+END.
+(*END OF PROGRAM*)

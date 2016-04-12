@@ -1,0 +1,6 @@
+PROGRAM test1;
+BEGIN
+	0 > 1 AND 2 < 3 AND
+	4 < 5 OR 6 > a AND
+	(5 + 30) <= 4 * 20 AND 2 > 3#-3
+END.
