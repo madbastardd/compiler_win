@@ -60,9 +60,7 @@ namespace compiler {
 
                 SyntacticalParser.SetTables(tables);
 
-                List<int> list1 = new List<int>(from p in list select p.code);
-
-                bool Parsed = SyntacticalParser.Start(list1, syntacticalWindow.textBox1);
+                bool Parsed = SyntacticalParser.Start(new List<int>(from p in list select p.code), syntacticalWindow.textBox1);
 
                 syntacticalWindow.Show();
 

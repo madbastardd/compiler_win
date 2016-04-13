@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Concrete.TableSpace;
 using Concrete.KeyWordTableSpace;
 using Concrete.IdentifierTableSpace;
 using Concrete.ConstantsTableSpace;
 using Concrete.AttributeClassSpace;
 using Concrete.MultySymbolSeparatorsTableSpace;
-using System.Text;
 using System.IO;
 using System.Windows.Controls;
 

@@ -11,7 +11,7 @@ namespace Concrete.IdentifierTableSpace {
 			/// <summary>
 			/// states of ID
 			/// </summary>
-			UNDEFINED, VAR, CONST, PROCEDURE, FUNCTION, BUILT_IN
+			UNDEFINED, VAR, PROCEDURE, BUILT_IN
 		}
 
 		Dictionary<ushort, States> IDType = new Dictionary<ushort, States>();	//type of ID
@@ -19,6 +19,10 @@ namespace Concrete.IdentifierTableSpace {
         public IdentifierTables() : base(1001) {
             //creates empty table
 			this.ReadFromFile ("startid.dat");
+            ushort FunctionIndex = CurrentIndex;
+            this.ReadFromFile("startfunc.dat");
+            for (ushort i = FunctionIndex; i < CurrentIndex; i++)
+                SetType(i, States.BUILT_IN);
         }
         public override void Insert(string _value) {
 			//just call overloaded method
