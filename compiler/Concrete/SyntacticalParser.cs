@@ -37,8 +37,6 @@ namespace Concrete.Syntactycal {
 
         static public Int32 Index { get { return index; } } //read-only property
 
-        static Stack<int> stack; //work stack
-
 		static TextBox stackTrace;   //result tree in string
 
         static public String StackTrace { get { return stackTrace.Text; } } //read-only property to get tree
@@ -177,7 +175,7 @@ namespace Concrete.Syntactycal {
                 //41
                 //rules.Add(null);
             }
-            return new List<int>(rules[index]);
+            return rules[index];
         }
 
         public static void SetTables(Concrete.TableSpace.Table[] tables) {
@@ -286,9 +284,6 @@ namespace Concrete.Syntactycal {
 
 			list = new List<int>(_list);
 
-            stack = new Stack<int>();
-			stack.Push(0);
-
             tree = new TreeNode();
 
 			index = 0;
@@ -296,17 +291,10 @@ namespace Concrete.Syntactycal {
             stackTrace = textBox;
             
 			if(SignalProgram()) {
-				stack.Pop();
-				if(stack.Count == 0) {
-					PrintTree(tree);
-					return true;
-				}
+				PrintTree(tree);
+				return true;
 			}
 			return false;
-		}
-
-		static bool CheckTop(int _TYPE_) {
-			return stack.Pop() == _TYPE_;
 		}
 
 		static void PrintTree(TreeNode node = null) {
@@ -322,16 +310,11 @@ namespace Concrete.Syntactycal {
             }
 		}
 
-		static void SetStackAndTree(TreeNode node, List<int> items, int ruleNum) {
+		static void SetTree(TreeNode node, List<int> items, int ruleNum) {
             if (items != null) {
                 node.node = new List<int>(items);
                 node.childs = new List<TreeNode>(new TreeNode[items.Count]);
                 node.rule = ruleNum;
-
-                items.Reverse();
-
-                foreach (var item in items)
-                    stack.Push(item);
             } else {
                 node.node = null;
                 node.childs = null;
@@ -341,8 +324,7 @@ namespace Concrete.Syntactycal {
 
 		static bool SignalProgram() {
 //			 1.	<signal-program> --> <program>
-
-			SetStackAndTree(tree, GetRule(0), 0);
+			SetTree(tree, GetRule(0), 0);
 
 			TreeNode c0 = new TreeNode();
 			if(Program(c0)) {
@@ -355,17 +337,14 @@ namespace Concrete.Syntactycal {
 		static bool Program(TreeNode node) {
 //			2.	<program> --> PROGRAM <procedure-identifier> ;
 //			<block>.
-			if(!CheckTop(_PROGRAM_))
-				return false;
-
-			SetStackAndTree(node, GetRule(1), 1);
+			SetTree(node, GetRule(1), 1);
 
 			TreeNode c1 = new TreeNode(), c3 = new TreeNode();
-			if(list[index++] == stack.Pop() &&
-			    ProcedureID(c1) &&
-			    list[index++] == stack.Pop() &&
+            if (list[index++] == KWTable.GetKey("PROGRAM") &&
+                ProcedureID(c1) &&
+                list[index++] == ';' &&
 			    Block(c3) &&
-			    list[index++] == stack.Pop()) {
+			    list[index++] == '.') {
 				node.childs[1] = c1;
 				node.childs[3] = c3;
 				return true;
@@ -375,16 +354,13 @@ namespace Concrete.Syntactycal {
 
 		static bool Block(TreeNode node) {
 //			3.	<block> --> BEGIN <conditional-expression> END
-			if(!CheckTop(_BLOCK_))
-				return false;
-
-			SetStackAndTree(node, GetRule(2), 2);
+			SetTree(node, GetRule(2), 2);
 
 			TreeNode c1 = new TreeNode();
 
-			if(list[index++] == stack.Pop() &&
+			if(list[index++] == KWTable.GetKey("BEGIN") &&
 			    ConditionalExp(c1) &&
-			    list[index++] == stack.Pop()) {
+			    list[index++] == KWTable.GetKey("END")) {
 				node.childs[1] = c1;
 				return true;
 			}
@@ -394,10 +370,7 @@ namespace Concrete.Syntactycal {
 		static bool ConditionalExp(TreeNode node) {
 //			4.	<conditional-expression> --> <logical-summand>
 //			<logical>
-			if(!CheckTop(_COND_EX_))
-				return false;
-				
-			SetStackAndTree(node, GetRule(3), 3);
+			SetTree(node, GetRule(3), 3);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 			if(LogicalSummand(c0) &&
@@ -412,20 +385,14 @@ namespace Concrete.Syntactycal {
 		static bool Logical(TreeNode node) {
 //			5.	<logical> --> OR <logical-summand> <logical> |
 //			<empty>
-			if(!CheckTop(_LOGICAL_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(4), 4);
+			SetTree(node, GetRule(4), 4);
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
-			if(list[index++] != stack.Pop() || !LogicalSummand(c1) || !Logical(c2)) {
-				stack = new Stack<int>(CopyStack);
+			if(list[index++] != KWTable.GetKey("OR") || !LogicalSummand(c1) || !Logical(c2)) {
 				index = CopyIndex;
-				node.node = null;
-				node.childs = null;
+                SetTree(node, null, rules.Count - 1);
 			} else {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
@@ -437,10 +404,7 @@ namespace Concrete.Syntactycal {
 		static bool LogicalSummand(TreeNode node) {
 //			6.	<logical-summand> --> <logical-multiplier>
 //			<logical-multipliers-list>
-			if(!CheckTop(_LOG_SUMMAND_))
-				return false;
-
-			SetStackAndTree(node, GetRule(5), 5);
+			SetTree(node, GetRule(5), 5);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 			if(LogicalMultiplier(c0) &&
@@ -456,19 +420,14 @@ namespace Concrete.Syntactycal {
 //			7.	<logical-multipliers-list> --> AND <logical-mul-
 //			tiplier> <logical-multipliers-list> |
 //			<empty>
-			if(!CheckTop(_LOG_MUL_LIST_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(6), 6);
+			SetTree(node, GetRule(6), 6);
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
-			if(list[index++] != stack.Pop() || !LogicalMultiplier(c1) || !LogicalMulList(c2)) {
-				stack = new Stack<int>(CopyStack);
+			if(list[index++] != KWTable.GetKey("AND") || !LogicalMultiplier(c1) || !LogicalMulList(c2)) {
 				index = CopyIndex;
-                SetStackAndTree(node, null, rules.Count - 1);
+                SetTree(node, null, rules.Count - 1);
 			} else {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
@@ -482,43 +441,38 @@ namespace Concrete.Syntactycal {
 //			[ <conditional-expression> ]
 //			|
 //			NOT <logical-multiplier>
-			if(!CheckTop(_LOG_MULTIPLIER_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
-			int CopyIndex = index;
-
-			SetStackAndTree(node, GetRule(7), 7);
-
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode(), c2 = new TreeNode();
-			if(list[index] == stack.Pop()) {
-				++index;
 
-				if(ConditionalExp(c1) && list[index++] == stack.Pop()) {
-					node.childs[1] = c1;
-					return true;
-				}
-			}
-			stack = new Stack<int>(CopyStack);
-			index = CopyIndex;
+            int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(8), 8);
+            if (list[index] == '[') {
+                ++index;
+
+                SetTree(node, GetRule(7), 7);
+
+                if (ConditionalExp(c1) && list[index++] == ']') {
+                    node.childs[1] = c1;
+                    return true;
+                }
+            }
+            else if (list[index] == KWTable.GetKey("NOT")) {
+                ++index;
+
+                SetTree(node, GetRule(9), 9);
+
+                if (LogicalMultiplier(c1)) {
+                    node.childs[1] = c1;
+                    return true;
+                }
+            }
+            index = CopyIndex;
+
+            SetTree(node, GetRule(8), 8);
 
 			if(Expression(c0) && ComparisonOperator(c1) && Expression(c2)) {
 				node.childs[0] = c0;
 				node.childs[1] = c1;
 				node.childs[2] = c2;
-				return true;
-			}
-
-			stack = new Stack<int>(CopyStack);
-			index = CopyIndex;
-
-			SetStackAndTree(node, GetRule(9), 9);
-
-			if(list[index++] == stack.Pop() &&
-			    LogicalMultiplier(c1)) {
-				node.childs[1] = c1;
 				return true;
 			}
 			return false;
@@ -533,11 +487,7 @@ namespace Concrete.Syntactycal {
 //				<> |
 //				>= |
 //				>
-			if(!CheckTop(_COMP_OP_))
-				return false;
-
-			SetStackAndTree(node, new List<int>(new int[] { list[index] }), 40);
-			stack.Pop();
+			SetTree(node, new List<int>(new int[] { list[index] }), 40);
 
 			if(list[index] == '<' ||
 			    list[index] == '=' ||
@@ -555,27 +505,24 @@ namespace Concrete.Syntactycal {
 //			10.	<expression> --> <summand> <summands-list>
 //			|
 //			- <summand> <summands-list>
-			if(!CheckTop(_EXPRESSION_))
-				return false;
-
-            Stack<int> CopyStack = new Stack<int>(stack);
             int CopyIndex = index;
 
             TreeNode c0 = new TreeNode(), c1 = new TreeNode(), c2 = new TreeNode();
 
-            SetStackAndTree(node, GetRule(11), 11);
+            if (list[index] == '-') {
+                ++index;
 
-            if (list[index++] == stack.Pop() &&
-                Summand(c1) && SummandsList(c2)) {
-                node.childs[1] = c1;
-                node.childs[2] = c2;
-                return true;
+                SetTree(node, GetRule(11), 11);
+
+                if (Summand(c1) && SummandsList(c2)) {
+                    node.childs[1] = c1;
+                    node.childs[2] = c2;
+                    return true;
+                }
             }
-
-            stack = new Stack<int>(CopyStack);
             index = CopyIndex;
 
-            SetStackAndTree(node, GetRule(10), 10);
+            SetTree(node, GetRule(10), 10);
 
             if (Summand(c0) && SummandsList(c1)) {
                 node.childs[0] = c0;
@@ -589,19 +536,14 @@ namespace Concrete.Syntactycal {
 //			11.	<summands-list> --> <add-instruction> <summand>
 //			<summands-list> |
 //			<empty>
-			if(!CheckTop(_SUM_LIST_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(12), 12);
+			SetTree(node, GetRule(12), 12);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode(), c2 = new TreeNode();
 			if(!AddInstruction(c0) || !Summand(c1) || !SummandsList(c2)) {
-				stack = new Stack<int>(CopyStack);
 				index = CopyIndex;
-                SetStackAndTree(node, null, rules.Count - 1);
+                SetTree(node, null, rules.Count - 1);
 			} else {
 				node.childs[0] = c0;
 				node.childs[1] = c1;
@@ -619,11 +561,7 @@ namespace Concrete.Syntactycal {
 //			|
 //			!
 //			|
-			if(!CheckTop(_ADD_INSTR_))
-				return false;
-
-            SetStackAndTree(node, new List<int>(new int[] { list[index] }), 40);
-            stack.Pop();
+            SetTree(node, new List<int>(new int[] { list[index] }), 40);
 
 			if(list[index] == '+' ||
 			    list[index] == '-' ||
@@ -636,10 +574,7 @@ namespace Concrete.Syntactycal {
 
 		static bool Summand(TreeNode node) {
 //			13.	<summand> --> <multiplier><multipliers-list>
-			if(!CheckTop(_SUMMAND_))
-				return false;
-
-			SetStackAndTree(node, GetRule(13), 13);
+			SetTree(node, GetRule(13), 13);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 			if(Multiplier(c0) &&
@@ -655,19 +590,14 @@ namespace Concrete.Syntactycal {
 //			14.	<multipliers-list> --> <multiplication-instruc-
 //			tion> <multiplier><multipliers-list> |
 //			<empty>
-			if(!CheckTop(_MUL_LIST_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(14), 14);
+			SetTree(node, GetRule(14), 14);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode(), c2 = new TreeNode();
 			if(!MultiplicationInstr(c0) || !Multiplier(c1) || !MultiplierList(c2)) {
-				stack = new Stack<int>(CopyStack);
 				index = CopyIndex;
-                SetStackAndTree(node, null, rules.Count - 1);
+                SetTree(node, null, rules.Count - 1);
 			} else {
 				node.childs[0] = c0;
 				node.childs[1] = c1;
@@ -685,11 +615,7 @@ namespace Concrete.Syntactycal {
 //			&
 //			|
 //			MOD
-			if(!CheckTop(_MUL_INSTR_))
-				return false;
-
-            SetStackAndTree(node, new List<int>(new int[] { list[index] }), 40);
-            stack.Pop();
+            SetTree(node, new List<int>(new int[] { list[index] }), 40);
 
 			if(list[index] == '*' ||
 			   list[index] == '/' ||
@@ -711,13 +637,9 @@ namespace Concrete.Syntactycal {
 //			- <multiplier>
 //			|
 //			^ <multiplier>
-			if(!CheckTop(_MULTIPLIER_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(15), 15);
+			SetTree(node, GetRule(15), 15);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -726,20 +648,18 @@ namespace Concrete.Syntactycal {
 				return true;
 			}
 
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
 
-			SetStackAndTree(node, GetRule(16), 16);
+			SetTree(node, GetRule(16), 16);
 
 			if(ComplexConstant(c0)) {
 				node.childs[0] = c0;
 				return true;
 			}
 
-            stack = new Stack<int>(CopyStack);
             index = CopyIndex;
 
-            SetStackAndTree(node, GetRule(17), 17);
+            SetTree(node, GetRule(17), 17);
 
             if (BuiltInFuncID(c0) && ActualArguments(c1)) {
                 node.childs[0] = c0;
@@ -747,40 +667,33 @@ namespace Concrete.Syntactycal {
                 return true;
             }
 
-            stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
 
-			SetStackAndTree(node, GetRule(18), 18);
+			SetTree(node, GetRule(18), 18);
 
-			if(list[index++] == stack.Pop() && Expression(c1) && list[index++] == stack.Pop()) {
+			if(list[index++] == '(' && Expression(c1) && list[index++] == ')') {
 				node.childs[1] = c1;
 				return true;
 			}
-
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
 
-			SetStackAndTree(node, GetRule(19), 19);
+			SetTree(node, GetRule(19), 19);
 
-			if(list[index++] == stack.Pop() && Multiplier(c1)) {
+			if(list[index++] == '-' && Multiplier(c1)) {
 				node.childs[1] = c1;
 				return true;
 			}
-
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
 
-			SetStackAndTree(node, GetRule(20), 20);
+			SetTree(node, GetRule(20), 20);
 
-			if(list[index++] == stack.Pop() && Multiplier(c1)) {
+			if(list[index++] == '^' && Multiplier(c1)) {
 				node.childs[1] = c1;
 				return true;
 			}
-
-            stack = new Stack<int>(CopyStack);
             index = CopyIndex;
 
-            SetStackAndTree(node, GetRule(21), 21);
+            SetTree(node, GetRule(21), 21);
 
             if(Variable(c0)) {
                 node.childs[0] = c0;
@@ -794,13 +707,9 @@ namespace Concrete.Syntactycal {
 //			17.	<variable> --> <variable-identifier>
 //			<dimension>|
 //			<complex-variable>
-			if(!CheckTop(_VARIABLE_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(22), 22);
+			SetTree(node, GetRule(22), 22);
 
 			TreeNode c0 = new TreeNode();
 
@@ -809,19 +718,17 @@ namespace Concrete.Syntactycal {
 				return true;
 			}
 
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
-			SetStackAndTree(node, GetRule(23), 23);
+			SetTree(node, GetRule(23), 23);
 
 			if(ComplexVariable(c0)) {
 				node.childs[0] = c0;
 				return true;
 			}
 
-            stack = new Stack<int>(CopyStack);
             index = CopyIndex;
 
-            SetStackAndTree(node, GetRule(24), 24);
+            SetTree(node, GetRule(24), 24);
 
             if(Dimension(c0)) {
                 node.childs[0] = c0;
@@ -832,16 +739,13 @@ namespace Concrete.Syntactycal {
 
 		static bool ComplexVariable(TreeNode node) {
 //			18.	<complex-variable> --> "<complex-number>"
-			if(!CheckTop(_COMPLEX_VARIABLE_))
-				return false;
-
-			SetStackAndTree(node, GetRule(25), 25);
+			SetTree(node, GetRule(25), 25);
 
 			TreeNode c1 = new TreeNode();
 
-			if(list[index++] == stack.Pop() &&
+			if(list[index++] == '"' &&
 			    ComplexNumber(c1) &&
-			    list[index++] == stack.Pop()) {
+			    list[index++] == '"') {
 				node.childs[1] = c1;
 				return true;
 			}
@@ -852,26 +756,21 @@ namespace Concrete.Syntactycal {
 //			19.	<dimension> -->[<expression><expressions-
 //				list>]|
 //			<empty>
-			if(!CheckTop(_DIMENSION_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(26), 26);
+			SetTree(node, GetRule(26), 26);
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 
-			if(list[index++] == stack.Pop() && Expression(c1) &&
-			    ExpressionList(c2) && list[index++] == stack.Pop()) {
+			if(list[index++] == '[' && Expression(c1) &&
+			    ExpressionList(c2) && list[index++] == ']') {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
 				return true;
 			}
 
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
-            SetStackAndTree(node, null, rules.Count - 1);
+            SetTree(node, null, rules.Count - 1);
 
             return true;
 		}
@@ -880,41 +779,32 @@ namespace Concrete.Syntactycal {
 //			20.	<expressions-list> -->
 //			,<expression><expressions-list> |
 //			<empty>
-			if(!CheckTop(_EXP_LIST_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(27), 27);
+			SetTree(node, GetRule(27), 27);
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 
-			if(list[index++] == stack.Pop() && Expression(c1) && ExpressionList(c2)) {
+			if(list[index++] == ',' && Expression(c1) && ExpressionList(c2)) {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
 				return true;
 			}
-
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
-            SetStackAndTree(node, null, rules.Count - 1);
+            SetTree(node, null, rules.Count - 1);
 
             return true;
 		}
 
 		static bool ComplexConstant(TreeNode node) {
 //			21.	<complex-constant> --> '<complex-number>'
-			if(!CheckTop(_COMPLEX_CONSTANT_))
-				return false;
-
-			SetStackAndTree(node, GetRule(28), 28);
+			SetTree(node, GetRule(28), 28);
 
 			TreeNode c1 = new TreeNode();
 
-			if(list[index++] == stack.Pop() &&
+			if(list[index++] == '\'' &&
 			    ComplexNumber(c1) &&
-			    list[index++] == stack.Pop()) {
+			    list[index++] == '\'') {
 				node.childs[1] = c1;
 				return true;
 			}
@@ -923,10 +813,7 @@ namespace Concrete.Syntactycal {
 
 		static bool UnsignedConstant(TreeNode node) {
 //			22.	<unsigned-constant> --> <unsigned-number>
-			if(!CheckTop(_UNSIGNED_CONST_))
-				return false;
-
-			SetStackAndTree(node, GetRule(29), 29);
+			SetTree(node, GetRule(29), 29);
 
 			TreeNode c0 = new TreeNode();
 
@@ -939,10 +826,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ComplexNumber(TreeNode node) {
 //			23.	<complex-number> --> <left-part> <right-part>
-			if(!CheckTop(_COMPLEX_NUMBER_))
-				return false;
-
-			SetStackAndTree(node, GetRule(30), 30);
+			SetTree(node, GetRule(30), 30);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -957,24 +841,19 @@ namespace Concrete.Syntactycal {
 		static bool LeftPart(TreeNode node) {
 //			24.	<left-part> --> <expression> |
 //			<empty>
-			if(!CheckTop(_LEFT_PART_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(31), 31);
+			SetTree(node, GetRule(31), 31);
 
 			TreeNode c0 = new TreeNode();
 
-			if(Expression(c0)) {
-				node.childs[0] = c0;
-				return true;
-			}
-
-			stack = new Stack<int>(CopyStack);
-			index = CopyIndex;
-            SetStackAndTree(node, null, rules.Count - 1);
+            if (Expression(c0)) {
+                node.childs[0] = c0;
+            }
+            else {
+                index = CopyIndex;
+                SetTree(node, null, rules.Count - 1);
+            }
 
             return true;
 		}
@@ -984,54 +863,48 @@ namespace Concrete.Syntactycal {
 //			$EXP( <expression> )
 //			|
 //			<empty>
-			if(!CheckTop(_RIGHT_PART_))
-				return false;
-
 			TreeNode c1 = new TreeNode();
 
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-            SetStackAndTree(node, GetRule(32), 32);
+            if (list[index] == ',') {
+                ++index;
 
-            if (list[index++] == stack.Pop() &&
-                Expression(c1)) {
-                node.childs[1] = c1;
-                return true;
+                SetTree(node, GetRule(32), 32);
+
+                if (Expression(c1)) {
+                    node.childs[1] = c1;
+                    return true;
+                }
             }
+            else if (list[index] == KWTable.GetKey("$EXP")) {
+                ++index;
 
-            stack = new Stack<int>(CopyStack);
-            index = CopyIndex;
+                SetTree(node, GetRule(33), 33);
 
-            SetStackAndTree(node, GetRule(33), 33);
-
-            if (list[index++] == stack.Pop() &&
-                list[index++] == stack.Pop() &&
+                if (list[index++] == '(' &&
                 Expression(c1) &&
-                list[index++] == stack.Pop()) {
-                node.childs[2] = c1;
-                return true;
+                list[index++] == ')') {
+                    node.childs[2] = c1;
+                    return true;
+                }
             }
-
-            stack = new Stack<int>(CopyStack);
             index = CopyIndex;
-            SetStackAndTree(node, null, rules.Count - 1);
+
+            SetTree(node, null, rules.Count - 1);
 
             return true;
         }
 
         static bool ActualArguments(TreeNode node) {
             //26. <actual arguments> --> ( <argument-list> )
-            if (!CheckTop(_ACTUAL_ARGUMENTS_))
-                return false;
-
-            SetStackAndTree(node, GetRule(34), 34);
+            SetTree(node, GetRule(34), 34);
 
             TreeNode c1 = new TreeNode();
 
-            if (list[index++] == stack.Pop() &&
+            if (list[index++] == '(' &&
                 ArgumentList(c1) &&
-                list[index++] == stack.Pop()) {
+                list[index++] == ')') {
                 node.childs[1] = c1;
                 return true;
             }
@@ -1040,10 +913,7 @@ namespace Concrete.Syntactycal {
 
 		static bool VariableID(TreeNode node) {
 //			27.	<variable-identifier> --> <identifier>
-			if(!CheckTop(_VARIABLE_ID_))
-				return false;
-
-			SetStackAndTree(node, GetRule(35), 35);
+			SetTree(node, GetRule(35), 35);
 
 			TreeNode c0 = new TreeNode();
 
@@ -1064,9 +934,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ProcedureID(TreeNode node) {
 //			28.	<procedure-identifier> --> <identifier>
-			if(!CheckTop(_PID_))
-				return false;
-			SetStackAndTree(node, GetRule(35), 35);
+			SetTree(node, GetRule(35), 35);
 
 			TreeNode c0 = new TreeNode();
 			if(!ID(c0) ||
@@ -1083,13 +951,9 @@ namespace Concrete.Syntactycal {
         static bool ArgumentList(TreeNode node) {
             //29. <argument-list> --> <unsigned-integer> <argument-list> |
             //<empty>
-            if (!CheckTop(_ARGUMENT_LIST_))
-                return false;
-
-            Stack<int> CopyStack = new Stack<int>(stack);
             int CopyIndex = index;
 
-            SetStackAndTree(node, GetRule(36), 36);
+            SetTree(node, GetRule(36), 36);
 
             TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -1098,19 +962,15 @@ namespace Concrete.Syntactycal {
                 node.childs[0] = c0;
                 node.childs[1] = c1;
             } else {
-                stack = new Stack<int>(CopyStack);
                 index = CopyIndex;
-                SetStackAndTree(node, null, rules.Count - 1);
+                SetTree(node, null, rules.Count - 1);
             }
             return true;
         }
 
         static bool BuiltInFuncID(TreeNode node) {
             // 30.  <builtin-function-identifier> --> <identifier>
-            if (!CheckTop(_BUILT_IN_FUNC_ID_))
-                return false;
-
-            SetStackAndTree(node, GetRule(35), 35);
+            SetTree(node, GetRule(35), 35);
 
             TreeNode c0 = new TreeNode();
 
@@ -1128,10 +988,7 @@ namespace Concrete.Syntactycal {
 		static bool UnsignedNumber(TreeNode node) {
 //			33.	<unsigned-number> --> <integer-part>
 //			<fractional-part>
-			if(!CheckTop(_UNSIGNED_NUM_))
-				return false;
-
-			SetStackAndTree(node, GetRule(37), 37);
+			SetTree(node, GetRule(37), 37);
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -1145,10 +1002,7 @@ namespace Concrete.Syntactycal {
 
 		static bool IntPart(TreeNode node) {
 //			34.	<integer-part> --> <unsigned-integer>
-			if(!CheckTop(_INT_PART_))
-				return false;
-
-			SetStackAndTree(node, GetRule(38), 38);
+			SetTree(node, GetRule(38), 38);
 
 			TreeNode c0 = new TreeNode();
 
@@ -1162,36 +1016,27 @@ namespace Concrete.Syntactycal {
 		static bool FracPart(TreeNode node) {
 //			35.	<fractional-part> --> #<sign><unsigned-integer>|
 //			<empty>
-			if(!CheckTop(_FRAC_PART_))
-				return false;
-
-			Stack<int> CopyStack = new Stack<int>(stack);
 			int CopyIndex = index;
 
-			SetStackAndTree(node, GetRule(39), 39);
+			SetTree(node, GetRule(39), 39);
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 
-			if(list[index++] == stack.Pop() && Sign(c1) && UnsignedInt(c2)) {
+			if(list[index++] == '#' && Sign(c1) && UnsignedInt(c2)) {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
 				return true;
 			}
 
-			stack = new Stack<int>(CopyStack);
 			index = CopyIndex;
-            SetStackAndTree(node, null, rules.Count - 1);
+            SetTree(node, null, rules.Count - 1);
 
             return true;
 		}
 
 		static bool UnsignedInt(TreeNode node) {
 //			36.	<unsigned-integer> --> <digit><digits-string>
-			if(!CheckTop(_UNSIGNED_INT_))
-				return false;
-
-            SetStackAndTree(node, new List<int>(new int[] { list[index] }), 40);
-            stack.Pop();
+            SetTree(node, new List<int>(new int[] { list[index] }), 40);
 
 			return list[index] >= 501 && list[index++] <= 1000;
 		}
@@ -1200,12 +1045,8 @@ namespace Concrete.Syntactycal {
             // 38.  <sign> --> + 
             // - |
             // <empty>
-			if(!CheckTop(_SIGN_))
-				return false;
-
 			if(list[index] == '+' || list[index] == '-') {
-                SetStackAndTree(node, new List<int>(new int[] { list[index] }), 40);
-                stack.Pop();
+                SetTree(node, new List<int>(new int[] { list[index] }), 40);
 				++index;
 			}
 			return true;
@@ -1213,11 +1054,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ID(TreeNode node) {
 //			check for terminal ID
-			if(!CheckTop(_ID_))
-				return false;
-
-            SetStackAndTree(node, new List<int>(new int[] { list[index] }), 40);
-            stack.Pop();
+            SetTree(node, new List<int>(new int[] { list[index] }), 40);
 
 			return list[index] >= 1001;
 		}
