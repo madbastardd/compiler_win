@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="SyntacticalWindow" Height="500" Width="500">
     <Grid>
-        <TextBox Name="textBox1" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Times New Roman" FontSize="20"/>
+        <TextBox Name="textBox1" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Times New Roman" FontSize="20" 
+                 VerticalScrollBarVisibility="Auto" />
     </Grid>
 </Controls:MetroWindow>

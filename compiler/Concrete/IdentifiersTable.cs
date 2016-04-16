@@ -14,7 +14,7 @@ namespace Concrete.IdentifierTableSpace {
 			UNDEFINED, VAR, PROCEDURE, BUILT_IN
 		}
 
-		Dictionary<ushort, States> IDType = new Dictionary<ushort, States>();	//type of ID
+        SortedDictionary<ushort, States> IDType = new SortedDictionary<ushort, States>();	//type of ID
 
         public IdentifierTables() : base(1001) {
             //creates empty table

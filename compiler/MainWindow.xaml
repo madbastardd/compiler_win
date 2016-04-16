@@ -20,11 +20,11 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Name="textBlock1" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" />
-            <TextBox Grid.Column="1" Name="textBlock2" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" />
-            <TextBox Grid.Column="2" Name="textBlock3" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" />
-            <TextBox Grid.Column="3" Name="textBlock4" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" />
-            <TextBox Grid.Column="4" Name="textBlock5" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" />
+            <TextBox Grid.Column="0" Name="textBlock1" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" VerticalScrollBarVisibility="Auto" />
+            <TextBox Grid.Column="1" Name="textBlock2" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" VerticalScrollBarVisibility="Auto" />
+            <TextBox Grid.Column="2" Name="textBlock3" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" VerticalScrollBarVisibility="Auto" />
+            <TextBox Grid.Column="3" Name="textBlock4" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" VerticalScrollBarVisibility="Auto" />
+            <TextBox Grid.Column="4" Name="textBlock5" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" VerticalScrollBarVisibility="Auto"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Name="textBlock6" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20"/>
+            <TextBox Grid.Column="0" Name="textBlock6" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Times New Roman" FontSize="20" VerticalScrollBarVisibility="Auto"/>
             <TextBox Grid.Column="1" Name="textBlock7" Height="50" FontFamily="Times New Roman" FontSize="20"/>
             <Button Grid.Column="2" Name="submit" Height="50" Content="Parse" Click="submit_Click" FontFamily="Times New Roman" FontSize="20"/>
         </Grid>

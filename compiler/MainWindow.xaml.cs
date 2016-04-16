@@ -66,7 +66,7 @@ namespace compiler {
 
                 if (Parsed) {
                     using (System.IO.StreamWriter file = new System.IO.StreamWriter(textFile.Split('.')[0] + ".ddt"))
-                        file.WriteLine(SyntacticalParser.StackTrace);
+                        file.WriteLine(SyntacticalParser.TextTree);
                 }
                 else {
                     syntacticalWindow.textBox1.Text = "Error in line " + list[SyntacticalParser.Index].line + ", position " + list[SyntacticalParser.Index].pos;

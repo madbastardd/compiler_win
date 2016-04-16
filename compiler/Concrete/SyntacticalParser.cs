@@ -37,11 +37,15 @@ namespace Concrete.Syntactycal {
 
         static public Int32 Index { get { return index; } } //read-only property
 
-		static TextBox stackTrace;   //result tree in string
+		static TextBox textTree;   //result tree in string
 
-        static public String StackTrace { get { return stackTrace.Text; } } //read-only property to get tree
+        static public String TextTree { get { return textTree.Text; } } //read-only property to get tree
 
         static TreeNode tree;  //tree
+
+        static string indents;  //tab
+
+        static bool makeIndents = true; //true - with indents
 
         static List<List<int>> rules;   //parsing rules
 
@@ -288,7 +292,9 @@ namespace Concrete.Syntactycal {
 
 			index = 0;
 
-            stackTrace = textBox;
+            indents = "";
+
+            textTree = textBox;
             
 			if(SignalProgram()) {
 				PrintTree(tree);
@@ -298,15 +304,28 @@ namespace Concrete.Syntactycal {
 		}
 
 		static void PrintTree(TreeNode node = null) {
-            if(stackTrace != null && node != null) {
-                stackTrace.Text += " { ";
-                if(node.node != null) {
+            if(textTree != null && node != null) {
+                if (makeIndents) {
+                    textTree.Text += indents + "{\n";
+                    indents += '\t';
+                } else {
+                    textTree.Text += " { ";
+                }
+                if (node.node != null) {
                     for(int i = 0; i < node.node.Count; i++) {
-                        stackTrace.Text += GetString(node.node[i]) + ' ';
+                        if (makeIndents)
+                            textTree.Text += indents + GetString(node.node[i]) + '\n';
+                        else
+                            textTree.Text += GetString(node.node[i]) + ' ';
                         PrintTree(node.childs[i]);
                     }
                 }
-                stackTrace.Text += " } ";
+                if (makeIndents) {
+                    indents = indents.Remove(0, 1) ?? "";
+                    textTree.Text += indents + "}\n";
+                } else {
+                    textTree.Text += " } ";
+                }
             }
 		}
 

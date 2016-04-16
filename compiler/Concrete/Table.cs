@@ -9,11 +9,11 @@ namespace Concrete.TableSpace {
     /// class includes dictionary, that has unique keys and unique values
     /// </summary>
     public abstract class Table : ITable {
-		protected Dictionary<ushort, string> data;
+		protected SortedDictionary<ushort, string> data;
 		protected ushort CurrentIndex;
 
 		public Table(ushort index = 0) {
-			this.data = new Dictionary<ushort, string>();
+			this.data = new SortedDictionary<ushort, string>();
 			this.CurrentIndex = index;
         }
         public string this[ushort index] {
