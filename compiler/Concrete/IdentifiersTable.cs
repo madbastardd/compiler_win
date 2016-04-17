@@ -6,7 +6,7 @@ using Concrete.TableSpace;
 using System.IO;
 
 namespace Concrete.IdentifierTableSpace {
-    public class IdentifierTables : Table {
+    public class IdentifierTable : Table {
 		public enum States {
 			/// <summary>
 			/// states of ID
@@ -16,7 +16,7 @@ namespace Concrete.IdentifierTableSpace {
 
         SortedDictionary<ushort, States> IDType = new SortedDictionary<ushort, States>();	//type of ID
 
-        public IdentifierTables() : base(1001) {
+        public IdentifierTable() : base(1001) {
             //creates empty table
 			this.ReadFromFile ("startid.dat");
             ushort FunctionIndex = CurrentIndex;

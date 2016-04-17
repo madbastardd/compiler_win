@@ -29,7 +29,7 @@ namespace Concrete.Syntactycal {
 		static MultySymbolSeparatorsTable MSTable;  //MultySymbol Separators Table
         static KeyWordsTable KWTable;   //Keywords Table
 		static ConstantsTable CTable;   //Constant Table
-		static IdentifierTables IDTable;    //ID Table
+		static IdentifierTable IDTable;    //ID Table
 
 		static List<int> list;  //parsed after lexical analyzer
 
@@ -79,13 +79,12 @@ namespace Concrete.Syntactycal {
             _RIGHT_PART_ = -27,
             _LEFT_PART_ = -28,
             _EXP_LIST_ = -29,
-            _INT_PART_ = -30,
-            _FRAC_PART_ = -31,
-            _UNSIGNED_INT_ = -32,
-            _SIGN_ = -33,
-            _ACTUAL_ARGUMENTS_ = -34,
-            _ARGUMENT_LIST_ = -35, 
-            _BUILT_IN_FUNC_ID_ = -36;
+            _INTEGER_ = -30,
+            _REAL_ = -31,
+            _SIGN_ = -32,
+            _ACTUAL_ARGUMENTS_ = -33,
+            _ARGUMENT_LIST_ = -34, 
+            _BUILT_IN_FUNC_ID_ = -35;
 
         static List<int> GetRule(int index) {
             //return rule
@@ -165,13 +164,9 @@ namespace Concrete.Syntactycal {
                 //35
                 rules.Add(new List<int>(new int[] { _ID_ }));
                 //36
-                rules.Add(new List<int>(new int[] { _UNSIGNED_INT_, _ARGUMENT_LIST_ }));
+                rules.Add(new List<int>(new int[] { _INTEGER_ }));
                 //37
-                rules.Add(new List<int>(new int[] { _INT_PART_, _FRAC_PART_ }));
-                //38
-                rules.Add(new List<int>(new int[] { _UNSIGNED_INT_ }));
-                //39
-                rules.Add(new List<int>(new int[] { '#', _SIGN_, _UNSIGNED_INT_ }));
+                rules.Add(new List<int>(new int[] { _REAL_ }));
 
 
                 //40
@@ -190,7 +185,7 @@ namespace Concrete.Syntactycal {
 			MSTable = tables[0] as MultySymbolSeparatorsTable;
 			KWTable = tables[1] as KeyWordsTable;
 			CTable = tables[2] as ConstantsTable;
-			IDTable = tables[3] as IdentifierTables;
+			IDTable = tables[3] as IdentifierTable;
 		}
 
 		static string GetString(int item) {
@@ -253,12 +248,10 @@ namespace Concrete.Syntactycal {
                 return "<left part>";
             else if (item == _EXP_LIST_)
                 return "<expression list>";
-            else if (item == _INT_PART_)
-                return "<integer part>";
-            else if (item == _FRAC_PART_)
-                return "<fractional part>";
-            else if (item == _UNSIGNED_INT_)
-                return "<unsigned int>";
+            else if (item == _INTEGER_)
+                return "<integer>";
+            else if (item == _REAL_)
+                return "<real>";
             else if (item == _SIGN_)
                 return "<sign>";
             else if (item == _ACTUAL_ARGUMENTS_)
@@ -937,14 +930,14 @@ namespace Concrete.Syntactycal {
 			TreeNode c0 = new TreeNode();
 
 			if(!ID(c0) ||
-				IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTables.States.UNDEFINED &&
-				IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTables.States.VAR)
+				IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTable.States.UNDEFINED &&
+				IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTable.States.VAR)
 				return false;
 			else
 				node.childs[0] = c0;
 
-			if(IDTable.GetType((ushort)list[index]) == Concrete.IdentifierTableSpace.IdentifierTables.States.UNDEFINED)
-				IDTable.SetType((ushort)list[index], IdentifierTables.States.VAR);
+			if(IDTable.GetType((ushort)list[index]) == Concrete.IdentifierTableSpace.IdentifierTable.States.UNDEFINED)
+				IDTable.SetType((ushort)list[index], IdentifierTable.States.VAR);
 
             ++index;
 
@@ -957,26 +950,26 @@ namespace Concrete.Syntactycal {
 
 			TreeNode c0 = new TreeNode();
 			if(!ID(c0) ||
-			    IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTables.States.UNDEFINED)
+			    IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTable.States.UNDEFINED)
 				return false;
 			else
 				node.childs[0] = c0;
 
-			IDTable.SetType((ushort)list[index++], IdentifierTables.States.PROCEDURE);
+			IDTable.SetType((ushort)list[index++], IdentifierTable.States.PROCEDURE);
 
 			return true;
 		}
 
         static bool ArgumentList(TreeNode node) {
-            //29. <argument-list> --> <unsigned-integer> <argument-list> |
+            //29. <argument-list> --> <unsigned-number> <argument-list> |
             //<empty>
             int CopyIndex = index;
 
-            SetTree(node, GetRule(36), 36);
+            SetTree(node, GetRule(34), 34);
 
             TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
-            if (UnsignedInt(c0) &&
+            if (UnsignedNumber(c0) &&
                 ArgumentList(c1)) {
                 node.childs[0] = c0;
                 node.childs[1] = c1;
@@ -994,7 +987,7 @@ namespace Concrete.Syntactycal {
             TreeNode c0 = new TreeNode();
 
             if (!ID(c0) ||
-                IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTables.States.BUILT_IN)
+                IDTable.GetType((ushort)list[index]) != Concrete.IdentifierTableSpace.IdentifierTable.States.BUILT_IN)
                 return false;
             else
                 node.childs[0] = c0;
@@ -1005,62 +998,41 @@ namespace Concrete.Syntactycal {
         }
 
 		static bool UnsignedNumber(TreeNode node) {
-//			33.	<unsigned-number> --> <integer-part>
-//			<fractional-part>
-			SetTree(node, GetRule(37), 37);
+            //33.	<unsigned-number> --> <integer> | <real>
+            int CopyIndex = index;
 
-			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
+            TreeNode c0 = new TreeNode();
 
-			if(IntPart(c0) && FracPart(c1)) {
-				node.childs[0] = c0;
-				node.childs[1] = c1;
-				return true;
-			}
-			return false;
-		}
+            if (Integer(c0)) {
+                SetTree(node, GetRule(36), 36);
+            }
+            else if (Real(c0)) {
+                SetTree(node, GetRule(37), 37);
+            }
+            else
+                return false;
 
-		static bool IntPart(TreeNode node) {
-//			34.	<integer-part> --> <unsigned-integer>
-			SetTree(node, GetRule(38), 38);
-
-			TreeNode c0 = new TreeNode();
-
-			if(UnsignedInt(c0)) {
-				node.childs[0] = c0;
-				return true;
-			}
-			return false;
-		}
-
-		static bool FracPart(TreeNode node) {
-//			35.	<fractional-part> --> #<sign><unsigned-integer>|
-//			<empty>
-			int CopyIndex = index;
-
-			SetTree(node, GetRule(39), 39);
-
-			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
-
-			if(list[index++] == '#' && Sign(c1) && UnsignedInt(c2)) {
-				node.childs[1] = c1;
-				node.childs[2] = c2;
-				return true;
-			}
-
-			index = CopyIndex;
-            SetTree(node, null, rules.Count - 1);
+            ++index;
+            node.childs[0] = c0;
 
             return true;
-		}
+        }
 
-		static bool UnsignedInt(TreeNode node) {
-//			36.	<unsigned-integer> --> <digit><digits-string>
+        static bool Integer(TreeNode node) {
+            // check for integer number
             SetTree(node, new List<int>(new int[] { list[index] }), 40);
 
-			return list[index] >= 501 && list[index++] <= 1000;
-		}
+            return list[index] >= 501 && list[index] <= 1000 && CTable.GetType((ushort)list[index]) == ConstantsTable.States.INTEGER;
+        }
 
-		static bool Sign(TreeNode node) {
+        static bool Real(TreeNode node) {
+            // check for real number
+            SetTree(node, new List<int>(new int[] { list[index] }), 40);
+
+            return list[index] >= 501 && list[index] <= 1000 && CTable.GetType((ushort)list[index]) == ConstantsTable.States.REAL;
+        }
+
+        static bool Sign(TreeNode node) {
             // 38.  <sign> --> + 
             // - |
             // <empty>

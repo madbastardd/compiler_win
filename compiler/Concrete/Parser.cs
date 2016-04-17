@@ -59,7 +59,7 @@ namespace Concrete.Parser {
 				ushort key;	//key of lexem
 				//tables assign
 				KeyWordsTable KWTable = tables[1] as KeyWordsTable;
-				IdentifierTables IDTable = tables[3] as IdentifierTables;
+				IdentifierTable IDTable = tables[3] as IdentifierTable;
 
 				if (!KWTable.ContainsValue (lexem)) {
 					//it is ID
@@ -82,6 +82,20 @@ namespace Concrete.Parser {
 				++curPos;
 			}
             ++curPos;
+            if ((AttributeClass.Get(readedSymbol) & (AttributeClass.HASHTAG)) != 0) {
+                lexem += (char)readedSymbol;
+                if (!sr.EndOfStream &&
+                (AttributeClass.Get(readedSymbol = sr.Read()) & (AttributeClass.SIGN | AttributeClass.DIGIT)) != 0) {
+                    lexem += (char)readedSymbol;
+                    ++curPos;
+                }
+                while (!sr.EndOfStream &&
+                (AttributeClass.Get(readedSymbol = sr.Read()) & (AttributeClass.DIGIT)) != 0) {
+                    lexem += (char)readedSymbol;    //create lexem
+                    ++curPos;
+                }
+                ++curPos;
+            }
 
 			//assign table
 			ConstantsTable CTable = tables[2] as ConstantsTable;

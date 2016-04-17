@@ -3,7 +3,7 @@ BEGIN
 	0#2 > 1 AND 2 < 3 AND
 	4 < 5 OR 6 > a AND
 	(5 + 30) <= tmp * 20 AND num * 3 MOD some > 3#-3 OR
-	5 * some >= AND NOT [5 + 3, 6 / 4] < 1#2 AND
+	+5#-4 * some >= AND NOT [5 + 3, 6 / 4] < 1#2 AND
 	[5 > 11 OR 8 = 9] AND
 	a > -b OR ^c < a OR
 	"7 + 5, 9 + 2" < 'b + g $EXP(2 + 3)' AND

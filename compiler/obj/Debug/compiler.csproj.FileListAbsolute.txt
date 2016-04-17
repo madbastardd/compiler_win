@@ -19,3 +19,5 @@ E:\compiler\compiler\bin\Debug\System.Windows.Interactivity.dll
 E:\compiler\compiler\bin\Debug\MahApps.Metro.pdb
 E:\compiler\compiler\bin\Debug\MahApps.Metro.xml
 E:\compiler\compiler\obj\Debug\App.baml
+E:\compiler\compiler\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\compiler\compiler\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml

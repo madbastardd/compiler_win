@@ -12,10 +12,12 @@ namespace Concrete.AttributeClassSpace {
             SEPARATOR = 2,
             WORD = 4,
             DIGIT = 8,
-            COMMENT_STARTER_ENDER = 16,	//symbol *
-			COMMENT_END_BRACKET = 32,	//symbol )
-            COMMENT_START_BRACKET = 64,	//symbol (
-			DOLLAR_SIGN = 128;
+            COMMENT_STARTER_ENDER = 16, //symbol *
+            COMMENT_END_BRACKET = 32,	//symbol )
+            COMMENT_START_BRACKET = 64, //symbol (
+            DOLLAR_SIGN = 128,
+            HASHTAG = 256,
+            SIGN = 512;
 
         static List<UInt16> attributes = new List<UInt16>();
 
@@ -27,8 +29,12 @@ namespace Concrete.AttributeClassSpace {
 				} else if (ind >= '0' && ind <= '9') {
 					//constant
 					attributes.Add ((UInt16)(DIGIT));
-				} else if (ind == ':' || ind == ';' || ind == '=' || ind == '#' || ind == ',' || ind == '!'
-				           || ind == '/' || ind == '&' || ind == '^' || ind == '+' || ind == '-'
+				} else if (ind == '+' || ind == '-') {
+                    attributes.Add((UInt16)(SEPARATOR | SIGN));
+                } else if (ind == '#') {
+                    attributes.Add((UInt16)(HASHTAG));
+                } else if (ind == ':' || ind == ';' || ind == '=' || ind == ',' || ind == '!'
+				           || ind == '/' || ind == '&' || ind == '^'
 				           || ind == '[' || ind == ']' || ind == '\'' || ind == '"' || ind == '.'
 				           || ind == '<' || ind == '>') {
 					//separators

@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using Interfaces.TableSpace;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace Concrete.TableSpace {
     /// <summary>
@@ -23,9 +24,9 @@ namespace Concrete.TableSpace {
         }
 
         public virtual void Insert(string _value) {
-			if (this.data.ContainsValue (_value)) 
-				throw new ArgumentException (_value);
-			this.data.Add(this.CurrentIndex++, _value);          
+            if (this.data.ContainsValue(_value))
+                throw new ArgumentException(_value);
+            this.data.Add(CurrentIndex++, _value);
         }
 
         public bool ContainsValue(string _value) {
@@ -58,11 +59,11 @@ namespace Concrete.TableSpace {
         }
 
 		public ushort GetKey (string _value) {
-			foreach (var item in this.data) {
-				if (item.Value == _value)
-					return item.Key;
-			}
-			throw new ArgumentException (_value);
+            return (from key in data.Keys
+                   where data[key] == (from value in data.Values
+                                       where value == _value
+                                       select value).First()
+                   select key).First();  
     	}
 
 		public void ShowInTextView (TextBox textView) {

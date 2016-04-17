@@ -33,7 +33,7 @@ namespace compiler {
                 new MultySymbolSeparatorsTable(),
                 new KeyWordsTable(),
                 new ConstantsTable(),
-                new IdentifierTables()
+                new IdentifierTable()
                 };
 
                 textBlock1.Text = textBlock2.Text =
