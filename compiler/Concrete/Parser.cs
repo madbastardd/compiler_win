@@ -88,11 +88,11 @@ namespace Concrete.Parser {
                 (AttributeClass.Get(readedSymbol = sr.Read()) & (AttributeClass.SIGN | AttributeClass.DIGIT)) != 0) {
                     lexem += (char)readedSymbol;
                     ++curPos;
-                }
-                while (!sr.EndOfStream &&
-                (AttributeClass.Get(readedSymbol = sr.Read()) & (AttributeClass.DIGIT)) != 0) {
-                    lexem += (char)readedSymbol;    //create lexem
-                    ++curPos;
+                    while (!sr.EndOfStream &&
+                    (AttributeClass.Get(readedSymbol = sr.Read()) & (AttributeClass.DIGIT)) != 0) {
+                        lexem += (char)readedSymbol;    //create lexem
+                        ++curPos;
+                    }
                 }
                 ++curPos;
             }
