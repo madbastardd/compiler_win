@@ -49,6 +49,8 @@ namespace Concrete.Syntactycal {
 
         static List<List<int>> rules;   //parsing rules
 
+        static SortedList<int, string> nonterminals;
+
         //nonterminals
         static readonly int _PROGRAM_ = -1,
             _BLOCK_ = -2,
@@ -190,77 +192,7 @@ namespace Concrete.Syntactycal {
 
 		static string GetString(int item) {
             //return uncoded nonterminals
-            if (item == _PROGRAM_)
-                return "<program>";
-            else if (item == _BLOCK_)
-                return "<block>";
-            else if (item == _PID_)
-                return "<procedure ID>";
-            else if (item == _ID_)
-                return "<identifier>";
-            else if (item == _COND_EX_)
-                return "<conditional expression>";
-            else if (item == _LOGICAL_)
-                return "<logical>";
-            else if (item == _LOG_SUMMAND_)
-                return "<logical summand>";
-            else if (item == _LOG_MULTIPLIER_)
-                return "<logical multiplier>";
-            else if (item == _LOG_MUL_LIST_)
-                return "<logical multiplier list>";
-            else if (item == _EXPRESSION_)
-                return "<expression>";
-            else if (item == _COMP_OP_)
-                return "<comparison operator>";
-            else if (item == _SUM_LIST_)
-                return "<summand list>";
-            else if (item == _SUMMAND_)
-                return "<summand>";
-            else if (item == _ADD_INSTR_)
-                return "<add instruction>";
-            else if (item == _MULTIPLIER_)
-                return "<multiplier>";
-            else if (item == _MUL_LIST_)
-                return "<multiplier list>";
-            else if (item == _MUL_INSTR_)
-                return "<multiplier instruction>";
-            else if (item == _CONSTANT_)
-                return "<constant>";
-            else if (item == _COMPLEX_CONSTANT_)
-                return "<complex constant>";
-            else if (item == _COMPLEX_NUMBER_)
-                return "<complex number>";
-            else if (item == _VARIABLE_)
-                return "<variable>";
-            else if (item == _VARIABLE_ID_)
-                return "<variable id>";
-            else if (item == _DIMENSION_)
-                return "<dimension>";
-            else if (item == _COMPLEX_VARIABLE_)
-                return "<complex variable>";
-            else if (item == _UNSIGNED_CONST_)
-                return "<unsigned const>";
-            else if (item == _UNSIGNED_NUM_)
-                return "<unsigned number>";
-            else if (item == _RIGHT_PART_)
-                return "<right part>";
-            else if (item == _LEFT_PART_)
-                return "<left part>";
-            else if (item == _EXP_LIST_)
-                return "<expression list>";
-            else if (item == _INTEGER_)
-                return "<integer>";
-            else if (item == _REAL_)
-                return "<real>";
-            else if (item == _SIGN_)
-                return "<sign>";
-            else if (item == _ACTUAL_ARGUMENTS_)
-                return "<actual-arguments>";
-            else if (item == _ARGUMENT_LIST_)
-                return "<argument-list>";
-            else if (item == _BUILT_IN_FUNC_ID_)
-                return "<builtin-function-identifier>";
-            else if (item >= 0 && item <= 255)
+            if (item >= 0 && item <= 255)
                 return ((char)item).ToString();
             else if (item >= 301 && item <= 400)
                 return MSTable[(ushort)item];
@@ -270,8 +202,47 @@ namespace Concrete.Syntactycal {
                 return CTable[(ushort)item];
             else if (item >= 1001)
                 return IDTable[(ushort)item];
-            else
-                return null;
+            if (nonterminals == null) {
+                nonterminals = new SortedList<int, string>() {
+                    [_PROGRAM_] = "<program",
+                    [_BLOCK_] = "<block>",
+                    [_PID_] = "<procedure ID>",
+                    [_ID_] = "<identifier>",
+                    [_COND_EX_] = "<conditional expression>",
+                    [_LOGICAL_] = "<logical>",
+                    [_LOG_SUMMAND_] = "<logical summand>",
+                    [_LOG_MULTIPLIER_] = "<logical multiplier>",
+                    [_LOG_MUL_LIST_] = "<logical multiplier list>",
+                    [_EXPRESSION_] = "<expression>",
+                    [_COMP_OP_] = "<comparison operator>",
+                    [_SUM_LIST_] = "<summand list>",
+                    [_SUMMAND_] = "<summand>",
+                    [_ADD_INSTR_] = "<add instruction>",
+                    [_MULTIPLIER_] = "<multiplier>",
+                    [_MUL_LIST_] = "<multiplier list>",
+                    [_MUL_INSTR_] = "<multiplier instruction>",
+                    [_CONSTANT_] = "<constant>",
+                    [_COMPLEX_CONSTANT_] = "<complex constant>",
+                    [_COMPLEX_NUMBER_] = "<complex number>",
+                    [_VARIABLE_] = "<variable>",
+                    [_VARIABLE_ID_] = "<variable ID>",
+                    [_DIMENSION_] = "<dimension>",
+                    [_COMPLEX_VARIABLE_] = "<complex variable>",
+                    [_UNSIGNED_CONST_] = "<unsigned const>",
+                    [_UNSIGNED_NUM_] = "<unsigned number>",
+                    [_RIGHT_PART_] = "<right part>",
+                    [_LEFT_PART_] = "<left part>",
+                    [_EXP_LIST_] = "<expression list>",
+                    [_INTEGER_] = "<integer>",
+                    [_REAL_] = "<real>",
+                    [_SIGN_] = "<sign>",
+                    [_ACTUAL_ARGUMENTS_] = "<actual arguments>",
+                    [_ARGUMENT_LIST_] = "<arguments list>",
+                    [_BUILT_IN_FUNC_ID_] = "<builtin-function-identifier>"
+                };
+            }
+
+            return nonterminals[item];
 		}
 
 		public static bool Start(List<int> _list, TextBox textBox = null) {

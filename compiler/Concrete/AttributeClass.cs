@@ -64,9 +64,6 @@ namespace Concrete.AttributeClassSpace {
 
         public static UInt16 Get(int index) {
 			// get index attribute
-			// throws IndexOutOfRangeException
-            if (index >= 255)
-                throw new IndexOutOfRangeException("index");
             return AttributeClass.attributes[index];
         }
     }

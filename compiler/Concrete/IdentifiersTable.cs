@@ -50,20 +50,15 @@ namespace Concrete.IdentifierTableSpace {
 			return GetType(this.GetKey(_value));
 		}
 
-		public override void SaveToFile (string fileName, bool WithKeys)
-    	{
-			try {
-				using (StreamWriter sw = new StreamWriter(fileName)) {
-					foreach (var item in IDType.Keys) {
-						if (WithKeys)
-							sw.WriteLine(String.Format("{0}:{1} - {2}", item, this.data[item], this.IDType[item]));
-						else
-							sw.WriteLine(String.Format("{0} - {2}", this.data[item], this.IDType[item]));
-					}
-				}
-			} catch (Exception ex) {
-				Console.WriteLine (ex.Message);
-			}
-    	}
+        public override void SaveToFile(string fileName, bool WithKeys) {
+            using (StreamWriter sw = new StreamWriter(fileName)) {
+                foreach (var item in IDType.Keys) {
+                    if (WithKeys)
+                        sw.WriteLine(String.Format("{0}:{1} - {2}", item, this.data[item], this.IDType[item]));
+                    else
+                        sw.WriteLine(String.Format("{0} - {2}", this.data[item], this.IDType[item]));
+                }
+            }
+        }
     }
 }

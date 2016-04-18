@@ -1,5 +1,5 @@
 {
-	<program>
+	<program
 	{
 		PROGRAM
 		<procedure ID>
@@ -244,7 +244,7 @@
 									{
 										<variable>
 										{
-											<variable id>
+											<variable ID>
 											{
 												<identifier>
 												{
@@ -347,7 +347,7 @@
 										{
 											<variable>
 											{
-												<variable id>
+												<variable ID>
 												{
 													<identifier>
 													{
@@ -398,7 +398,7 @@
 											{
 												<variable>
 												{
-													<variable id>
+													<variable ID>
 													{
 														<identifier>
 														{
@@ -436,7 +436,7 @@
 													{
 														<variable>
 														{
-															<variable id>
+															<variable ID>
 															{
 																<identifier>
 																{
@@ -546,7 +546,7 @@
 												{
 													<variable>
 													{
-														<variable id>
+														<variable ID>
 														{
 															<identifier>
 															{
@@ -913,7 +913,7 @@
 													{
 														<variable>
 														{
-															<variable id>
+															<variable ID>
 															{
 																<identifier>
 																{
@@ -943,7 +943,7 @@
 													{
 														<variable>
 														{
-															<variable id>
+															<variable ID>
 															{
 																<identifier>
 																{
@@ -986,7 +986,7 @@
 												{
 													<variable>
 													{
-														<variable id>
+														<variable ID>
 														{
 															<identifier>
 															{
@@ -1016,7 +1016,7 @@
 											{
 												<variable>
 												{
-													<variable id>
+													<variable ID>
 													{
 														<identifier>
 														{
@@ -1205,7 +1205,7 @@
 																		{
 																			<variable>
 																			{
-																				<variable id>
+																				<variable ID>
 																				{
 																					<identifier>
 																					{
@@ -1230,7 +1230,7 @@
 																			{
 																				<variable>
 																				{
-																					<variable id>
+																					<variable ID>
 																					{
 																						<identifier>
 																						{
@@ -1387,7 +1387,7 @@
 													{
 														<variable>
 														{
-															<variable id>
+															<variable ID>
 															{
 																<identifier>
 																{
@@ -1482,7 +1482,7 @@
 																												{
 																													<variable>
 																													{
-																														<variable id>
+																														<variable ID>
 																														{
 																															<identifier>
 																															{
@@ -1529,7 +1529,7 @@
 																				{
 																					<variable>
 																					{
-																						<variable id>
+																						<variable ID>
 																						{
 																							<identifier>
 																							{
@@ -1699,10 +1699,10 @@
 																	SIN
 																}
 															}
-															<actual-arguments>
+															<actual arguments>
 															{
 																(
-																<argument-list>
+																<arguments list>
 																{
 																	(
 																	{
@@ -1711,7 +1711,7 @@
 																			1
 																		}
 																	}
-																	<argument-list>
+																	<arguments list>
 																	{
 																	}
 																	)
@@ -1740,10 +1740,10 @@
 																		COS
 																	}
 																}
-																<actual-arguments>
+																<actual arguments>
 																{
 																	(
-																	<argument-list>
+																	<arguments list>
 																	{
 																		(
 																		{
@@ -1752,7 +1752,7 @@
 																				5
 																			}
 																		}
-																		<argument-list>
+																		<arguments list>
 																		{
 																			(
 																			{
@@ -1761,7 +1761,7 @@
 																					6
 																				}
 																			}
-																			<argument-list>
+																			<arguments list>
 																			{
 																				(
 																				{
@@ -1770,7 +1770,7 @@
 																						7
 																					}
 																				}
-																				<argument-list>
+																				<arguments list>
 																				{
 																				}
 																				)
@@ -1808,10 +1808,10 @@
 																	LOG
 																}
 															}
-															<actual-arguments>
+															<actual arguments>
 															{
 																(
-																<argument-list>
+																<arguments list>
 																{
 																}
 																)

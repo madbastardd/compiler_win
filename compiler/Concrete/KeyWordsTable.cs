@@ -9,8 +9,5 @@ namespace Concrete.KeyWordTableSpace {
             //some keywords
             this.ReadFromFile("kwords.dat");
         }
-        public override void Insert(string _value) {
-            base.Insert(_value);
-        }
     }
 }

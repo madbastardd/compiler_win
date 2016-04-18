@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 namespace Concrete.ConstantsTableSpace {
     public class ConstantsTable : TableSpace.Table {
         public enum States {
+            /// <summary>
+            /// states of constant (type)
+            /// </summary>
             INTEGER, REAL
         }
         SortedDictionary<ushort, States> CType = new SortedDictionary<ushort, States>();	//type of ID
