@@ -1,1838 +1,1834 @@
 {
-	<program
+<program>
 	{
-		PROGRAM
-		<procedure ID>
+	PROGRAM
+	<procedure ID>
 		{
-			<identifier>
+		<identifier>
 			{
-				test1
+			test1
 			}
 		}
-		;
-		<block>
+	;
+	<block>
 		{
-			BEGIN
-			<conditional expression>
+		BEGIN
+		<conditional expression>
 			{
-				<logical summand>
+			<logical summand>
 				{
-					<logical multiplier>
+				<logical multiplier>
 					{
-						<expression>
+					<expression>
 						{
-							<summand>
+						<summand>
 							{
-								<multiplier>
+							<multiplier>
 								{
-									<unsigned const>
+								<unsigned const>
 									{
-										<unsigned number>
+									<unsigned number>
 										{
-											<real>
+										<real>
 											{
-												0#2
+											0#2
 											}
 										}
 									}
 								}
-								<multiplier list>
+							<multiplier list>
 								{
 								}
 							}
-							<summand list>
+						<summand list>
 							{
 							}
 						}
-						<comparison operator>
+					<comparison operator>
 						{
-							>
+						>
 						}
-						<expression>
+					<expression>
 						{
-							<summand>
+						<summand>
 							{
-								<multiplier>
+							<multiplier>
 								{
-									<unsigned const>
+								<unsigned const>
 									{
-										<unsigned number>
+									<unsigned number>
 										{
-											<integer>
+										<integer>
 											{
-												1
+											1
 											}
 										}
 									}
 								}
-								<multiplier list>
+							<multiplier list>
 								{
 								}
 							}
-							<summand list>
+						<summand list>
 							{
 							}
 						}
 					}
-					<logical multiplier list>
+				<logical multiplier list>
 					{
-						AND
-						<logical multiplier>
+					AND
+					<logical multiplier>
 						{
-							<expression>
+						<expression>
 							{
-								<summand>
+							<summand>
 								{
-									<multiplier>
+								<multiplier>
 									{
-										<unsigned const>
+									<unsigned const>
 										{
-											<unsigned number>
+										<unsigned number>
 											{
-												<integer>
+											<integer>
 												{
-													2
+												2
 												}
 											}
 										}
 									}
-									<multiplier list>
+								<multiplier list>
 									{
 									}
 								}
-								<summand list>
+							<summand list>
 								{
 								}
 							}
-							<comparison operator>
+						<comparison operator>
 							{
-								<
+							<
 							}
-							<expression>
+						<expression>
 							{
-								<summand>
+							<summand>
 								{
-									<multiplier>
+								<multiplier>
 									{
-										<unsigned const>
+									<unsigned const>
 										{
-											<unsigned number>
+										<unsigned number>
 											{
-												<integer>
+											<integer>
 												{
-													3
+												3
 												}
 											}
 										}
 									}
-									<multiplier list>
+								<multiplier list>
 									{
 									}
 								}
-								<summand list>
+							<summand list>
 								{
 								}
 							}
 						}
-						<logical multiplier list>
+					<logical multiplier list>
 						{
-							AND
-							<logical multiplier>
+						AND
+						<logical multiplier>
 							{
-								<expression>
+							<expression>
 								{
-									<summand>
+								<summand>
 									{
-										<multiplier>
+									<multiplier>
 										{
-											<unsigned const>
+										<unsigned const>
 											{
-												<unsigned number>
+											<unsigned number>
 												{
-													<integer>
+												<integer>
 													{
-														4
+													4
 													}
 												}
 											}
 										}
-										<multiplier list>
+									<multiplier list>
 										{
 										}
 									}
-									<summand list>
+								<summand list>
 									{
 									}
 								}
-								<comparison operator>
+							<comparison operator>
 								{
-									<
+								<
 								}
-								<expression>
+							<expression>
 								{
-									<summand>
+								<summand>
 									{
-										<multiplier>
+									<multiplier>
 										{
-											<unsigned const>
+										<unsigned const>
 											{
-												<unsigned number>
+											<unsigned number>
 												{
-													<integer>
+												<integer>
 													{
-														5
+													5
 													}
 												}
 											}
 										}
-										<multiplier list>
+									<multiplier list>
 										{
 										}
 									}
-									<summand list>
+								<summand list>
 									{
 									}
 								}
 							}
-							<logical multiplier list>
+						<logical multiplier list>
 							{
 							}
 						}
 					}
 				}
-				<logical>
+			<logical>
 				{
-					OR
-					<logical summand>
+				OR
+				<logical summand>
 					{
-						<logical multiplier>
+					<logical multiplier>
 						{
-							<expression>
+						<expression>
 							{
-								<summand>
+							<summand>
 								{
-									<multiplier>
+								<multiplier>
 									{
-										<unsigned const>
+									<unsigned const>
 										{
-											<unsigned number>
+										<unsigned number>
 											{
-												<integer>
+											<integer>
 												{
-													6
+												6
 												}
 											}
 										}
 									}
-									<multiplier list>
+								<multiplier list>
 									{
 									}
 								}
-								<summand list>
+							<summand list>
 								{
 								}
 							}
-							<comparison operator>
+						<comparison operator>
 							{
-								>
+							>
 							}
-							<expression>
+						<expression>
 							{
-								<summand>
+							<summand>
 								{
-									<multiplier>
+								<multiplier>
 									{
-										<variable>
+									<variable>
 										{
-											<variable ID>
+										<variable ID>
 											{
-												<identifier>
+											<identifier>
 												{
-													a
+												a
 												}
 											}
 										}
 									}
-									<multiplier list>
+								<multiplier list>
 									{
 									}
 								}
-								<summand list>
+							<summand list>
 								{
 								}
 							}
 						}
-						<logical multiplier list>
+					<logical multiplier list>
 						{
-							AND
-							<logical multiplier>
+						AND
+						<logical multiplier>
 							{
-								<expression>
+							<expression>
 								{
-									<summand>
+								<summand>
 									{
-										<multiplier>
+									<multiplier>
 										{
-											(
-											<expression>
+										(
+										<expression>
 											{
-												<summand>
+											<summand>
 												{
-													<multiplier>
+												<multiplier>
 													{
-														<unsigned const>
+													<unsigned const>
 														{
-															<unsigned number>
+														<unsigned number>
 															{
-																<integer>
+															<integer>
 																{
-																	5
+																5
 																}
 															}
 														}
 													}
-													<multiplier list>
+												<multiplier list>
 													{
 													}
 												}
-												<summand list>
+											<summand list>
 												{
-													<add instruction>
+												<add instruction>
 													{
-														+
+													+
 													}
-													<summand>
+												<summand>
 													{
-														<multiplier>
+													<multiplier>
 														{
-															<unsigned const>
+														<unsigned const>
 															{
-																<unsigned number>
+															<unsigned number>
 																{
-																	<integer>
+																<integer>
 																	{
-																		30
+																	30
 																	}
 																}
 															}
 														}
-														<multiplier list>
+													<multiplier list>
 														{
 														}
 													}
-													<summand list>
+												<summand list>
 													{
 													}
 												}
 											}
-											)
+										)
 										}
-										<multiplier list>
+									<multiplier list>
 										{
 										}
 									}
-									<summand list>
+								<summand list>
 									{
 									}
 								}
-								<comparison operator>
+							<comparison operator>
 								{
-									<=
+								<=
 								}
-								<expression>
+							<expression>
 								{
-									<summand>
+								<summand>
 									{
+									<multiplier>
+										{
+										<variable>
+											{
+											<variable ID>
+												{
+												<identifier>
+													{
+													tmp
+													}
+												}
+											}
+										}
+									<multiplier list>
+										{
+										<multiplier instruction>
+											{
+											*
+											}
 										<multiplier>
-										{
-											<variable>
 											{
-												<variable ID>
+											<unsigned const>
 												{
-													<identifier>
+												<unsigned number>
 													{
-														tmp
-													}
-												}
-											}
-										}
-										<multiplier list>
-										{
-											<multiplier instruction>
-											{
-												*
-											}
-											<multiplier>
-											{
-												<unsigned const>
-												{
-													<unsigned number>
-													{
-														<integer>
+													<integer>
 														{
-															20
+														20
 														}
 													}
 												}
 											}
-											<multiplier list>
+										<multiplier list>
 											{
 											}
 										}
 									}
-									<summand list>
+								<summand list>
 									{
 									}
 								}
 							}
-							<logical multiplier list>
+						<logical multiplier list>
 							{
-								AND
-								<logical multiplier>
+							AND
+							<logical multiplier>
 								{
-									<expression>
+								<expression>
 									{
-										<summand>
+									<summand>
 										{
-											<multiplier>
+										<multiplier>
 											{
-												<variable>
+											<variable>
 												{
-													<variable ID>
+												<variable ID>
 													{
-														<identifier>
+													<identifier>
 														{
-															num
+														num
 														}
 													}
 												}
 											}
-											<multiplier list>
+										<multiplier list>
 											{
-												<multiplier instruction>
+											<multiplier instruction>
 												{
-													*
+												*
 												}
-												<multiplier>
+											<multiplier>
 												{
-													<unsigned const>
+												<unsigned const>
 													{
-														<unsigned number>
+													<unsigned number>
 														{
-															<integer>
+														<integer>
 															{
-																3
+															3
 															}
 														}
 													}
 												}
-												<multiplier list>
+											<multiplier list>
 												{
-													<multiplier instruction>
+												<multiplier instruction>
 													{
-														MOD
+													MOD
 													}
-													<multiplier>
+												<multiplier>
 													{
-														<variable>
+													<variable>
 														{
-															<variable ID>
+														<variable ID>
 															{
-																<identifier>
+															<identifier>
 																{
-																	some
+																some
 																}
 															}
 														}
 													}
-													<multiplier list>
+												<multiplier list>
 													{
 													}
 												}
 											}
 										}
-										<summand list>
+									<summand list>
 										{
 										}
 									}
-									<comparison operator>
+								<comparison operator>
 									{
-										>
+									>
 									}
-									<expression>
+								<expression>
 									{
-										<summand>
+									<summand>
 										{
-											<multiplier>
+										<multiplier>
 											{
-												<unsigned const>
+											<unsigned const>
 												{
-													<unsigned number>
+												<unsigned number>
 													{
-														<real>
+													<real>
 														{
-															3#-3
+														3#-3
 														}
 													}
 												}
 											}
-											<multiplier list>
+										<multiplier list>
 											{
 											}
 										}
-										<summand list>
+									<summand list>
 										{
 										}
 									}
 								}
-								<logical multiplier list>
+							<logical multiplier list>
 								{
 								}
 							}
 						}
 					}
-					<logical>
+				<logical>
 					{
-						OR
-						<logical summand>
+					OR
+					<logical summand>
 						{
-							<logical multiplier>
+						<logical multiplier>
 							{
-								<expression>
+							<expression>
 								{
-									<summand>
+								<summand>
 									{
-										<multiplier>
+									<multiplier>
 										{
-											<variable>
+										<variable>
 											{
-												<dimension>
+											<dimension>
 												{
 												}
 											}
 										}
-										<multiplier list>
+									<multiplier list>
 										{
 										}
 									}
-									<summand list>
+								<summand list>
 									{
-										<add instruction>
+									<add instruction>
 										{
-											+
+										+
 										}
-										<summand>
+									<summand>
 										{
-											<multiplier>
+										<multiplier>
 											{
-												<unsigned const>
+											<unsigned const>
 												{
-													<unsigned number>
+												<unsigned number>
 													{
-														<real>
+													<real>
 														{
-															5#-4
+														5#-4
 														}
 													}
 												}
 											}
-											<multiplier list>
+										<multiplier list>
 											{
-												<multiplier instruction>
+											<multiplier instruction>
 												{
-													*
+												*
 												}
-												<multiplier>
+											<multiplier>
 												{
-													<variable>
+												<variable>
 													{
-														<variable ID>
+													<variable ID>
 														{
-															<identifier>
+														<identifier>
 															{
-																some
+															some
 															}
 														}
 													}
 												}
-												<multiplier list>
+											<multiplier list>
 												{
 												}
 											}
 										}
-										<summand list>
-										{
-										}
-									}
-								}
-								<comparison operator>
-								{
-									>=
-								}
-								<expression>
-								{
-									<summand>
-									{
-										<multiplier>
-										{
-											<variable>
-											{
-												<dimension>
-												{
-												}
-											}
-										}
-										<multiplier list>
-										{
-										}
-									}
 									<summand list>
+										{
+										}
+									}
+								}
+							<comparison operator>
+								{
+								>=
+								}
+							<expression>
+								{
+								<summand>
+									{
+									<multiplier>
+										{
+										<variable>
+											{
+											<dimension>
+												{
+												}
+											}
+										}
+									<multiplier list>
+										{
+										}
+									}
+								<summand list>
 									{
 									}
 								}
 							}
-							<logical multiplier list>
+						<logical multiplier list>
 							{
-								AND
-								<logical multiplier>
+							AND
+							<logical multiplier>
 								{
-									NOT
-									<logical multiplier>
+								NOT
+								<logical multiplier>
 									{
-										<expression>
+									<expression>
 										{
-											<summand>
+										<summand>
 											{
-												<multiplier>
+											<multiplier>
 												{
-													<variable>
+												<variable>
 													{
-														<dimension>
+													<dimension>
 														{
-															[
-															<expression>
+														[
+														<expression>
 															{
-																<summand>
+															<summand>
 																{
-																	<multiplier>
+																<multiplier>
 																	{
-																		<unsigned const>
+																	<unsigned const>
 																		{
-																			<unsigned number>
+																		<unsigned number>
 																			{
-																				<integer>
+																			<integer>
 																				{
-																					5
+																				5
 																				}
 																			}
 																		}
 																	}
-																	<multiplier list>
+																<multiplier list>
 																	{
 																	}
 																}
-																<summand list>
+															<summand list>
 																{
-																	<add instruction>
+																<add instruction>
 																	{
-																		+
+																	+
 																	}
-																	<summand>
+																<summand>
 																	{
-																		<multiplier>
+																	<multiplier>
 																		{
-																			<unsigned const>
+																		<unsigned const>
 																			{
-																				<unsigned number>
+																			<unsigned number>
 																				{
-																					<integer>
+																				<integer>
 																					{
-																						3
+																					3
 																					}
 																				}
 																			}
 																		}
-																		<multiplier list>
+																	<multiplier list>
 																		{
 																		}
 																	}
-																	<summand list>
+																<summand list>
 																	{
 																	}
 																}
 															}
-															<expression list>
+														<expression list>
 															{
-																,
-																<expression>
+															,
+															<expression>
 																{
-																	<summand>
+																<summand>
 																	{
-																		<multiplier>
+																	<multiplier>
 																		{
-																			<unsigned const>
+																		<unsigned const>
 																			{
-																				<unsigned number>
+																			<unsigned number>
 																				{
-																					<integer>
+																				<integer>
 																					{
-																						6
+																					6
 																					}
 																				}
 																			}
 																		}
-																		<multiplier list>
+																	<multiplier list>
 																		{
-																			<multiplier instruction>
+																		<multiplier instruction>
 																			{
-																				/
+																			/
 																			}
-																			<multiplier>
+																		<multiplier>
 																			{
-																				<unsigned const>
+																			<unsigned const>
 																				{
-																					<unsigned number>
+																				<unsigned number>
 																					{
-																						<integer>
+																					<integer>
 																						{
-																							4
+																						4
 																						}
 																					}
 																				}
 																			}
-																			<multiplier list>
+																		<multiplier list>
 																			{
 																			}
 																		}
 																	}
-																	<summand list>
+																<summand list>
 																	{
 																	}
 																}
-																<expression list>
+															<expression list>
 																{
 																}
 															}
-															]
+														]
 														}
 													}
 												}
-												<multiplier list>
+											<multiplier list>
 												{
 												}
 											}
-											<summand list>
+										<summand list>
 											{
 											}
 										}
-										<comparison operator>
+									<comparison operator>
 										{
-											<
+										<
 										}
-										<expression>
+									<expression>
 										{
-											<summand>
+										<summand>
 											{
-												<multiplier>
+											<multiplier>
 												{
-													<unsigned const>
+												<unsigned const>
 													{
-														<unsigned number>
+													<unsigned number>
 														{
-															<real>
+														<real>
 															{
-																1#2
+															1#2
 															}
 														}
 													}
 												}
-												<multiplier list>
+											<multiplier list>
 												{
 												}
 											}
-											<summand list>
+										<summand list>
 											{
 											}
 										}
 									}
 								}
-								<logical multiplier list>
+							<logical multiplier list>
 								{
+								AND
+								<logical multiplier>
+									{
+									[
+									<conditional expression>
+										{
+										<logical summand>
+											{
+											<logical multiplier>
+												{
+												<expression>
+													{
+													<summand>
+														{
+														<multiplier>
+															{
+															<unsigned const>
+																{
+																<unsigned number>
+																	{
+																	<integer>
+																		{
+																		5
+																		}
+																	}
+																}
+															}
+														<multiplier list>
+															{
+															}
+														}
+													<summand list>
+														{
+														}
+													}
+												<comparison operator>
+													{
+													>
+													}
+												<expression>
+													{
+													<summand>
+														{
+														<multiplier>
+															{
+															<unsigned const>
+																{
+																<unsigned number>
+																	{
+																	<integer>
+																		{
+																		11
+																		}
+																	}
+																}
+															}
+														<multiplier list>
+															{
+															}
+														}
+													<summand list>
+														{
+														}
+													}
+												}
+											<logical multiplier list>
+												{
+												}
+											}
+										<logical>
+											{
+											OR
+											<logical summand>
+												{
+												<logical multiplier>
+													{
+													<expression>
+														{
+														<summand>
+															{
+															<multiplier>
+																{
+																<unsigned const>
+																	{
+																	<unsigned number>
+																		{
+																		<integer>
+																			{
+																			8
+																			}
+																		}
+																	}
+																}
+															<multiplier list>
+																{
+																}
+															}
+														<summand list>
+															{
+															}
+														}
+													<comparison operator>
+														{
+														=
+														}
+													<expression>
+														{
+														<summand>
+															{
+															<multiplier>
+																{
+																<unsigned const>
+																	{
+																	<unsigned number>
+																		{
+																		<integer>
+																			{
+																			9
+																			}
+																		}
+																	}
+																}
+															<multiplier list>
+																{
+																}
+															}
+														<summand list>
+															{
+															}
+														}
+													}
+												<logical multiplier list>
+													{
+													}
+												}
+											<logical>
+												{
+												}
+											}
+										}
+									]
+									}
+								<logical multiplier list>
+									{
 									AND
 									<logical multiplier>
-									{
-										[
-										<conditional expression>
 										{
-											<logical summand>
+										<expression>
 											{
-												<logical multiplier>
+											<summand>
 												{
-													<expression>
+												<multiplier>
 													{
-														<summand>
+													<variable>
 														{
-															<multiplier>
+														<variable ID>
 															{
-																<unsigned const>
+															<identifier>
 																{
-																	<unsigned number>
-																	{
-																		<integer>
-																		{
-																			5
-																		}
-																	}
+																a
 																}
 															}
-															<multiplier list>
-															{
-															}
-														}
-														<summand list>
-														{
 														}
 													}
-													<comparison operator>
+												<multiplier list>
 													{
-														>
-													}
-													<expression>
-													{
-														<summand>
-														{
-															<multiplier>
-															{
-																<unsigned const>
-																{
-																	<unsigned number>
-																	{
-																		<integer>
-																		{
-																			11
-																		}
-																	}
-																}
-															}
-															<multiplier list>
-															{
-															}
-														}
-														<summand list>
-														{
-														}
 													}
 												}
-												<logical multiplier list>
+											<summand list>
 												{
 												}
 											}
-											<logical>
+										<comparison operator>
 											{
-												OR
-												<logical summand>
+											>
+											}
+										<expression>
+											{
+											-
+											<summand>
 												{
-													<logical multiplier>
+												<multiplier>
 													{
-														<expression>
+													<variable>
 														{
-															<summand>
+														<variable ID>
 															{
-																<multiplier>
+															<identifier>
 																{
-																	<unsigned const>
-																	{
-																		<unsigned number>
-																		{
-																			<integer>
-																			{
-																				8
-																			}
-																		}
-																	}
+																b
 																}
-																<multiplier list>
-																{
-																}
-															}
-															<summand list>
-															{
-															}
-														}
-														<comparison operator>
-														{
-															=
-														}
-														<expression>
-														{
-															<summand>
-															{
-																<multiplier>
-																{
-																	<unsigned const>
-																	{
-																		<unsigned number>
-																		{
-																			<integer>
-																			{
-																				9
-																			}
-																		}
-																	}
-																}
-																<multiplier list>
-																{
-																}
-															}
-															<summand list>
-															{
 															}
 														}
 													}
-													<logical multiplier list>
+												<multiplier list>
 													{
 													}
 												}
-												<logical>
+											<summand list>
 												{
 												}
 											}
 										}
-										]
-									}
 									<logical multiplier list>
-									{
-										AND
-										<logical multiplier>
-										{
-											<expression>
-											{
-												<summand>
-												{
-													<multiplier>
-													{
-														<variable>
-														{
-															<variable ID>
-															{
-																<identifier>
-																{
-																	a
-																}
-															}
-														}
-													}
-													<multiplier list>
-													{
-													}
-												}
-												<summand list>
-												{
-												}
-											}
-											<comparison operator>
-											{
-												>
-											}
-											<expression>
-											{
-												-
-												<summand>
-												{
-													<multiplier>
-													{
-														<variable>
-														{
-															<variable ID>
-															{
-																<identifier>
-																{
-																	b
-																}
-															}
-														}
-													}
-													<multiplier list>
-													{
-													}
-												}
-												<summand list>
-												{
-												}
-											}
-										}
-										<logical multiplier list>
 										{
 										}
 									}
 								}
 							}
 						}
-						<logical>
+					<logical>
 						{
-							OR
-							<logical summand>
+						OR
+						<logical summand>
 							{
-								<logical multiplier>
+							<logical multiplier>
 								{
-									<expression>
+								<expression>
 									{
-										<summand>
+									<summand>
 										{
-											<multiplier>
+										<multiplier>
 											{
-												^
-												<multiplier>
+											^
+											<multiplier>
 												{
-													<variable>
+												<variable>
 													{
-														<variable ID>
+													<variable ID>
 														{
-															<identifier>
+														<identifier>
 															{
-																c
+															c
 															}
 														}
 													}
 												}
 											}
-											<multiplier list>
+										<multiplier list>
 											{
 											}
 										}
-										<summand list>
+									<summand list>
 										{
 										}
 									}
-									<comparison operator>
+								<comparison operator>
 									{
-										<
+									<
 									}
-									<expression>
+								<expression>
 									{
-										<summand>
+									<summand>
 										{
-											<multiplier>
+										<multiplier>
 											{
-												<variable>
+											<variable>
 												{
-													<variable ID>
+												<variable ID>
 													{
-														<identifier>
+													<identifier>
 														{
-															a
+														a
 														}
 													}
 												}
 											}
-											<multiplier list>
+										<multiplier list>
 											{
 											}
 										}
-										<summand list>
+									<summand list>
 										{
 										}
 									}
 								}
-								<logical multiplier list>
+							<logical multiplier list>
 								{
 								}
 							}
-							<logical>
+						<logical>
 							{
-								OR
-								<logical summand>
+							OR
+							<logical summand>
 								{
-									<logical multiplier>
+								<logical multiplier>
 									{
-										<expression>
+									<expression>
 										{
-											<summand>
+										<summand>
 											{
-												<multiplier>
+											<multiplier>
 												{
-													<variable>
+												<variable>
 													{
-														<complex variable>
+													<complex variable>
 														{
-															"
-															<complex number>
-															{
-																<left part>
-																{
-																	<expression>
-																	{
-																		<summand>
-																		{
-																			<multiplier>
-																			{
-																				<unsigned const>
-																				{
-																					<unsigned number>
-																					{
-																						<integer>
-																						{
-																							7
-																						}
-																					}
-																				}
-																			}
-																			<multiplier list>
-																			{
-																			}
-																		}
-																		<summand list>
-																		{
-																			<add instruction>
-																			{
-																				+
-																			}
-																			<summand>
-																			{
-																				<multiplier>
-																				{
-																					<unsigned const>
-																					{
-																						<unsigned number>
-																						{
-																							<integer>
-																							{
-																								5
-																							}
-																						}
-																					}
-																				}
-																				<multiplier list>
-																				{
-																				}
-																			}
-																			<summand list>
-																			{
-																			}
-																		}
-																	}
-																}
-																<right part>
-																{
-																	,
-																	<expression>
-																	{
-																		<summand>
-																		{
-																			<multiplier>
-																			{
-																				<unsigned const>
-																				{
-																					<unsigned number>
-																					{
-																						<integer>
-																						{
-																							9
-																						}
-																					}
-																				}
-																			}
-																			<multiplier list>
-																			{
-																			}
-																		}
-																		<summand list>
-																		{
-																			<add instruction>
-																			{
-																				+
-																			}
-																			<summand>
-																			{
-																				<multiplier>
-																				{
-																					<unsigned const>
-																					{
-																						<unsigned number>
-																						{
-																							<integer>
-																							{
-																								2
-																							}
-																						}
-																					}
-																				}
-																				<multiplier list>
-																				{
-																				}
-																			}
-																			<summand list>
-																			{
-																			}
-																		}
-																	}
-																}
-															}
-															"
-														}
-													}
-												}
-												<multiplier list>
-												{
-												}
-											}
-											<summand list>
-											{
-											}
-										}
-										<comparison operator>
-										{
-											<
-										}
-										<expression>
-										{
-											<summand>
-											{
-												<multiplier>
-												{
-													<complex constant>
-													{
-														'
+														"
 														<complex number>
-														{
+															{
 															<left part>
-															{
-																<expression>
 																{
-																	<summand>
-																	{
-																		<multiplier>
-																		{
-																			<variable>
-																			{
-																				<variable ID>
-																				{
-																					<identifier>
-																					{
-																						b
-																					}
-																				}
-																			}
-																		}
-																		<multiplier list>
-																		{
-																		}
-																	}
-																	<summand list>
-																	{
-																		<add instruction>
-																		{
-																			+
-																		}
-																		<summand>
-																		{
-																			<multiplier>
-																			{
-																				<variable>
-																				{
-																					<variable ID>
-																					{
-																						<identifier>
-																						{
-																							g
-																						}
-																					}
-																				}
-																			}
-																			<multiplier list>
-																			{
-																			}
-																		}
-																		<summand list>
-																		{
-																		}
-																	}
-																}
-															}
-															<right part>
-															{
-																$EXP
-																(
 																<expression>
-																{
-																	<summand>
 																	{
-																		<multiplier>
+																	<summand>
 																		{
+																		<multiplier>
+																			{
 																			<unsigned const>
-																			{
+																				{
 																				<unsigned number>
-																				{
+																					{
 																					<integer>
-																					{
-																						2
-																					}
-																				}
-																			}
-																		}
-																		<multiplier list>
-																		{
-																		}
-																	}
-																	<summand list>
-																	{
-																		<add instruction>
-																		{
-																			+
-																		}
-																		<summand>
-																		{
-																			<multiplier>
-																			{
-																				<unsigned const>
-																				{
-																					<unsigned number>
-																					{
-																						<integer>
 																						{
-																							3
+																						7
 																						}
 																					}
 																				}
 																			}
-																			<multiplier list>
+																		<multiplier list>
 																			{
 																			}
 																		}
-																		<summand list>
+																	<summand list>
 																		{
+																		<add instruction>
+																			{
+																			+
+																			}
+																		<summand>
+																			{
+																			<multiplier>
+																				{
+																				<unsigned const>
+																					{
+																					<unsigned number>
+																						{
+																						<integer>
+																							{
+																							5
+																							}
+																						}
+																					}
+																				}
+																			<multiplier list>
+																				{
+																				}
+																			}
+																		<summand list>
+																			{
+																			}
 																		}
 																	}
 																}
-																)
+															<right part>
+																{
+																,
+																<expression>
+																	{
+																	<summand>
+																		{
+																		<multiplier>
+																			{
+																			<unsigned const>
+																				{
+																				<unsigned number>
+																					{
+																					<integer>
+																						{
+																						9
+																						}
+																					}
+																				}
+																			}
+																		<multiplier list>
+																			{
+																			}
+																		}
+																	<summand list>
+																		{
+																		<add instruction>
+																			{
+																			+
+																			}
+																		<summand>
+																			{
+																			<multiplier>
+																				{
+																				<unsigned const>
+																					{
+																					<unsigned number>
+																						{
+																						<integer>
+																							{
+																							2
+																							}
+																						}
+																					}
+																				}
+																			<multiplier list>
+																				{
+																				}
+																			}
+																		<summand list>
+																			{
+																			}
+																		}
+																	}
+																}
 															}
+														"
 														}
-														'
 													}
 												}
-												<multiplier list>
+											<multiplier list>
 												{
 												}
 											}
-											<summand list>
+										<summand list>
+											{
+											}
+										}
+									<comparison operator>
+										{
+										<
+										}
+									<expression>
+										{
+										<summand>
+											{
+											<multiplier>
+												{
+												<complex constant>
+													{
+													'
+													<complex number>
+														{
+														<left part>
+															{
+															<expression>
+																{
+																<summand>
+																	{
+																	<multiplier>
+																		{
+																		<variable>
+																			{
+																			<variable ID>
+																				{
+																				<identifier>
+																					{
+																					b
+																					}
+																				}
+																			}
+																		}
+																	<multiplier list>
+																		{
+																		}
+																	}
+																<summand list>
+																	{
+																	<add instruction>
+																		{
+																		+
+																		}
+																	<summand>
+																		{
+																		<multiplier>
+																			{
+																			<variable>
+																				{
+																				<variable ID>
+																					{
+																					<identifier>
+																						{
+																						g
+																						}
+																					}
+																				}
+																			}
+																		<multiplier list>
+																			{
+																			}
+																		}
+																	<summand list>
+																		{
+																		}
+																	}
+																}
+															}
+														<right part>
+															{
+															$EXP
+															(
+															<expression>
+																{
+																<summand>
+																	{
+																	<multiplier>
+																		{
+																		<unsigned const>
+																			{
+																			<unsigned number>
+																				{
+																				<integer>
+																					{
+																					2
+																					}
+																				}
+																			}
+																		}
+																	<multiplier list>
+																		{
+																		}
+																	}
+																<summand list>
+																	{
+																	<add instruction>
+																		{
+																		+
+																		}
+																	<summand>
+																		{
+																		<multiplier>
+																			{
+																			<unsigned const>
+																				{
+																				<unsigned number>
+																					{
+																					<integer>
+																						{
+																						3
+																						}
+																					}
+																				}
+																			}
+																		<multiplier list>
+																			{
+																			}
+																		}
+																	<summand list>
+																		{
+																		}
+																	}
+																}
+															)
+															}
+														}
+													'
+													}
+												}
+											<multiplier list>
+												{
+												}
+											}
+										<summand list>
 											{
 											}
 										}
 									}
-									<logical multiplier list>
+								<logical multiplier list>
 									{
-										AND
-										<logical multiplier>
+									AND
+									<logical multiplier>
 										{
-											<expression>
+										<expression>
 											{
-												<summand>
+											<summand>
 												{
-													<multiplier>
+												<multiplier>
 													{
-														<unsigned const>
+													<unsigned const>
 														{
-															<unsigned number>
+														<unsigned number>
 															{
-																<integer>
+															<integer>
 																{
-																	2
+																2
 																}
 															}
 														}
 													}
-													<multiplier list>
+												<multiplier list>
 													{
 													}
 												}
-												<summand list>
+											<summand list>
 												{
-													<add instruction>
+												<add instruction>
 													{
-														+
+													+
 													}
-													<summand>
+												<summand>
 													{
-														<multiplier>
+													<multiplier>
 														{
-															<unsigned const>
+														<unsigned const>
 															{
-																<unsigned number>
+															<unsigned number>
 																{
-																	<integer>
+																<integer>
 																	{
-																		3
+																	3
 																	}
 																}
 															}
 														}
-														<multiplier list>
+													<multiplier list>
 														{
 														}
 													}
-													<summand list>
+												<summand list>
 													{
 													}
 												}
 											}
-											<comparison operator>
+										<comparison operator>
 											{
-												<>
+											<>
 											}
-											<expression>
+										<expression>
 											{
-												<summand>
+											<summand>
 												{
-													<multiplier>
+												<multiplier>
 													{
-														<variable>
+													<variable>
 														{
-															<variable ID>
+														<variable ID>
 															{
-																<identifier>
+															<identifier>
 																{
-																	tmp
+																tmp
 																}
 															}
 														}
 													}
-													<multiplier list>
+												<multiplier list>
 													{
-														<multiplier instruction>
+													<multiplier instruction>
 														{
-															&
+														&
 														}
-														<multiplier>
+													<multiplier>
 														{
-															<complex constant>
+														<complex constant>
 															{
-																'
-																<complex number>
+															'
+															<complex number>
 																{
-																	<left part>
+																<left part>
 																	{
-																		<expression>
+																	<expression>
 																		{
-																			<summand>
+																		<summand>
 																			{
-																				<multiplier>
+																			<multiplier>
 																				{
-																					<unsigned const>
+																				<unsigned const>
 																					{
-																						<unsigned number>
+																					<unsigned number>
 																						{
-																							<integer>
+																						<integer>
 																							{
-																								10
+																							10
 																							}
 																						}
 																					}
 																				}
-																				<multiplier list>
+																			<multiplier list>
 																				{
 																				}
 																			}
-																			<summand list>
+																		<summand list>
 																			{
-																				<add instruction>
+																			<add instruction>
 																				{
-																					+
+																				+
 																				}
-																				<summand>
+																			<summand>
 																				{
-																					<multiplier>
+																				<multiplier>
 																					{
-																						<complex constant>
+																					<complex constant>
 																						{
-																							'
-																							<complex number>
+																						'
+																						<complex number>
 																							{
-																								<left part>
+																							<left part>
 																								{
-																									<expression>
+																								<expression>
 																									{
-																										<summand>
+																									<summand>
 																										{
-																											<multiplier>
+																										<multiplier>
 																											{
-																												<unsigned const>
+																											<unsigned const>
 																												{
-																													<unsigned number>
+																												<unsigned number>
 																													{
-																														<integer>
+																													<integer>
 																														{
-																															11
+																														11
 																														}
 																													}
 																												}
 																											}
-																											<multiplier list>
+																										<multiplier list>
 																											{
 																											}
 																										}
-																										<summand list>
+																									<summand list>
 																										{
-																											<add instruction>
+																										<add instruction>
 																											{
-																												+
+																											+
 																											}
-																											<summand>
+																										<summand>
 																											{
-																												<multiplier>
+																											<multiplier>
 																												{
-																													<variable>
+																												<variable>
 																													{
-																														<variable ID>
+																													<variable ID>
 																														{
-																															<identifier>
+																														<identifier>
 																															{
-																																b
+																															b
 																															}
 																														}
 																													}
 																												}
-																												<multiplier list>
+																											<multiplier list>
 																												{
 																												}
 																											}
-																											<summand list>
+																										<summand list>
 																											{
 																											}
 																										}
 																									}
 																								}
-																								<right part>
+																							<right part>
 																								{
 																								}
 																							}
-																							'
+																						'
 																						}
 																					}
-																					<multiplier list>
+																				<multiplier list>
 																					{
 																					}
 																				}
-																				<summand list>
+																			<summand list>
 																				{
 																				}
 																			}
 																		}
 																	}
-																	<right part>
+																<right part>
 																	{
-																		,
-																		<expression>
+																	,
+																	<expression>
 																		{
-																			<summand>
+																		<summand>
 																			{
-																				<multiplier>
+																			<multiplier>
 																				{
-																					<variable>
+																				<variable>
 																					{
-																						<variable ID>
+																					<variable ID>
 																						{
-																							<identifier>
+																						<identifier>
 																							{
-																								var
+																							var
 																							}
 																						}
 																					}
 																				}
-																				<multiplier list>
+																			<multiplier list>
 																				{
 																				}
 																			}
-																			<summand list>
+																		<summand list>
 																			{
-																				<add instruction>
+																			<add instruction>
 																				{
-																					!
+																				!
 																				}
-																				<summand>
+																			<summand>
 																				{
-																					<multiplier>
+																				<multiplier>
 																					{
-																						<variable>
+																					<variable>
 																						{
-																							<complex variable>
+																						<complex variable>
 																							{
-																								"
-																								<complex number>
+																							"
+																							<complex number>
 																								{
-																									<left part>
+																								<left part>
 																									{
-																										<expression>
+																									<expression>
 																										{
-																											<summand>
+																										<summand>
 																											{
-																												<multiplier>
+																											<multiplier>
 																												{
-																													<variable>
+																												<variable>
 																													{
-																														<dimension>
+																													<dimension>
 																														{
 																														}
 																													}
 																												}
-																												<multiplier list>
+																											<multiplier list>
 																												{
 																												}
 																											}
-																											<summand list>
+																										<summand list>
 																											{
 																											}
 																										}
 																									}
-																									<right part>
+																								<right part>
 																									{
-																										,
-																										<expression>
+																									,
+																									<expression>
 																										{
-																											<summand>
+																										<summand>
 																											{
-																												<multiplier>
+																											<multiplier>
 																												{
-																													<unsigned const>
+																												<unsigned const>
 																													{
-																														<unsigned number>
+																													<unsigned number>
 																														{
-																															<integer>
+																														<integer>
 																															{
-																																13
+																															13
 																															}
 																														}
 																													}
 																												}
-																												<multiplier list>
+																											<multiplier list>
 																												{
-																													<multiplier instruction>
+																												<multiplier instruction>
 																													{
-																														MOD
+																													MOD
 																													}
-																													<multiplier>
+																												<multiplier>
 																													{
-																														<unsigned const>
+																													<unsigned const>
 																														{
-																															<unsigned number>
+																														<unsigned number>
 																															{
-																																<integer>
+																															<integer>
 																																{
-																																	12
+																																12
 																																}
 																															}
 																														}
 																													}
-																													<multiplier list>
+																												<multiplier list>
 																													{
-																														<multiplier instruction>
+																													<multiplier instruction>
 																														{
-																															*
+																														*
 																														}
-																														<multiplier>
+																													<multiplier>
 																														{
-																															<unsigned const>
+																														<unsigned const>
 																															{
-																																<unsigned number>
+																															<unsigned number>
 																																{
-																																	<integer>
+																																<integer>
 																																	{
-																																		2
+																																	2
 																																	}
 																																}
 																															}
 																														}
-																														<multiplier list>
+																													<multiplier list>
 																														{
 																														}
 																													}
 																												}
 																											}
-																											<summand list>
+																										<summand list>
 																											{
 																											}
 																										}
 																									}
 																								}
-																								"
+																							"
 																							}
 																						}
 																					}
-																					<multiplier list>
+																				<multiplier list>
 																					{
 																					}
 																				}
-																				<summand list>
+																			<summand list>
 																				{
 																				}
 																			}
 																		}
 																	}
 																}
-																'
+															'
 															}
 														}
-														<multiplier list>
+													<multiplier list>
 														{
 														}
 													}
 												}
-												<summand list>
+											<summand list>
 												{
 												}
 											}
 										}
-										<logical multiplier list>
+									<logical multiplier list>
 										{
-											AND
-											<logical multiplier>
+										AND
+										<logical multiplier>
 											{
-												<expression>
+											<expression>
 												{
-													<summand>
+												<summand>
 													{
-														<multiplier>
+													<multiplier>
 														{
-															<builtin-function-identifier>
+														<builtin-function-identifier>
 															{
-																<identifier>
+															<identifier>
 																{
-																	SIN
+																SIN
 																}
 															}
-															<actual arguments>
+														<actual arguments>
 															{
-																(
-																<arguments list>
+															(
+															<arguments list>
 																{
-																	(
+																<unsigned number>
 																	{
-																		<integer>
+																	<integer>
 																		{
-																			1
+																		1
 																		}
 																	}
-																	<arguments list>
+																<arguments list>
 																	{
 																	}
-																	)
 																}
-																)
+															)
 															}
 														}
-														<multiplier list>
+													<multiplier list>
 														{
 														}
 													}
-													<summand list>
+												<summand list>
 													{
-														<add instruction>
+													<add instruction>
 														{
-															+
+														+
 														}
-														<summand>
+													<summand>
 														{
-															<multiplier>
+														<multiplier>
 															{
-																<builtin-function-identifier>
+															<builtin-function-identifier>
 																{
-																	<identifier>
+																<identifier>
 																	{
-																		COS
+																	COS
 																	}
 																}
-																<actual arguments>
+															<actual arguments>
 																{
-																	(
-																	<arguments list>
+																(
+																<arguments list>
 																	{
-																		(
+																	<unsigned number>
 																		{
-																			<integer>
+																		<integer>
 																			{
-																				5
+																			5
 																			}
 																		}
-																		<arguments list>
+																	<arguments list>
 																		{
-																			(
+																		<unsigned number>
 																			{
-																				<integer>
+																			<integer>
 																				{
-																					6
+																				6
 																				}
 																			}
-																			<arguments list>
+																		<arguments list>
 																			{
-																				(
+																			<unsigned number>
 																				{
-																					<integer>
+																				<integer>
 																					{
-																						7
+																					7
 																					}
 																				}
-																				<arguments list>
+																			<arguments list>
 																				{
 																				}
-																				)
 																			}
-																			)
 																		}
-																		)
 																	}
-																	)
-																}
-															}
-															<multiplier list>
-															{
-															}
-														}
-														<summand list>
-														{
-														}
-													}
-												}
-												<comparison operator>
-												{
-													<>
-												}
-												<expression>
-												{
-													<summand>
-													{
-														<multiplier>
-														{
-															<builtin-function-identifier>
-															{
-																<identifier>
-																{
-																	LOG
-																}
-															}
-															<actual arguments>
-															{
-																(
-																<arguments list>
-																{
-																}
 																)
+																}
+															}
+														<multiplier list>
+															{
 															}
 														}
-														<multiplier list>
+													<summand list>
 														{
 														}
 													}
-													<summand list>
+												}
+											<comparison operator>
+												{
+												<>
+												}
+											<expression>
+												{
+												<summand>
+													{
+													<multiplier>
+														{
+														<builtin-function-identifier>
+															{
+															<identifier>
+																{
+																LOG
+																}
+															}
+														<actual arguments>
+															{
+															(
+															<arguments list>
+																{
+																}
+															)
+															}
+														}
+													<multiplier list>
+														{
+														}
+													}
+												<summand list>
 													{
 													}
 												}
 											}
-											<logical multiplier list>
+										<logical multiplier list>
 											{
 											}
 										}
 									}
 								}
-								<logical>
+							<logical>
 								{
 								}
 							}
@@ -1840,9 +1836,9 @@
 					}
 				}
 			}
-			END
+		END
 		}
-		.
+	.
 	}
 }
 

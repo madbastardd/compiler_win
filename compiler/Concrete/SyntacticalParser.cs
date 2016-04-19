@@ -5,6 +5,8 @@ using Concrete.ConstantsTableSpace;
 using Concrete.IdentifierTableSpace;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Concrete.Syntactycal {
 	internal class TreeNode {
@@ -12,12 +14,10 @@ namespace Concrete.Syntactycal {
         /// just a node of tree, can be a root
         /// </summary>
 		public List<int> node;  //data of node
-        public int rule;
 		public List<TreeNode> childs;   //childs
 
         public TreeNode(int _rule = 0, List<int> _node = null) {
             node = _node;
-            rule = _rule;
             childs = null;
         }
 	}
@@ -43,11 +43,9 @@ namespace Concrete.Syntactycal {
 
         static TreeNode tree;  //tree
 
-        static string indents;  //tab
+        static StringBuilder indents;  //tab
 
         static bool makeIndents = true; //true - with indents
-
-        static List<List<int>> rules;   //parsing rules
 
         static SortedList<int, string> nonterminals;
 
@@ -88,97 +86,6 @@ namespace Concrete.Syntactycal {
             _ARGUMENT_LIST_ = -34, 
             _BUILT_IN_FUNC_ID_ = -35;
 
-        static List<int> GetRule(int index) {
-            //return rule
-            if (rules == null) {
-                rules = new List<List<int>>();
-
-                //0
-                rules.Add(new List<int>(new int[] { _PROGRAM_ }));
-                //1
-                rules.Add(new List<int>(new int[] { KWTable.GetKey("PROGRAM"), _PID_, ';', _BLOCK_, '.' }));
-                //2
-                rules.Add(new List<int>(new int[] { KWTable.GetKey("BEGIN"), _COND_EX_, KWTable.GetKey("END") }));
-                //3
-                rules.Add(new List<int>(new int[] { _LOG_SUMMAND_, _LOGICAL_ }));
-                //4
-                rules.Add(new List<int>(new int[] { KWTable.GetKey("OR"), _LOG_SUMMAND_, _LOGICAL_ }));
-                //5
-                rules.Add(new List<int>(new int[] { _LOG_MULTIPLIER_, _LOG_MUL_LIST_ }));
-                //6
-                rules.Add(new List<int>(new int[] { KWTable.GetKey("AND"), _LOG_MULTIPLIER_, _LOG_MUL_LIST_ }));
-                //7
-                rules.Add(new List<int>(new int[] { '[', _COND_EX_, ']' }));
-                //8
-                rules.Add(new List<int>(new int[] { _EXPRESSION_, _COMP_OP_, _EXPRESSION_ }));
-                //9
-                rules.Add(new List<int>(new int[] { KWTable.GetKey("NOT"), _LOG_MULTIPLIER_ }));
-                //10
-                rules.Add(new List<int>(new int[] { _SUMMAND_, _SUM_LIST_ }));
-                //11
-                rules.Add(new List<int>(new int[] { '-', _SUMMAND_, _SUM_LIST_ }));
-                //12
-                rules.Add(new List<int>(new int[] { _ADD_INSTR_, _SUMMAND_, _SUM_LIST_ }));
-                //13
-                rules.Add(new List<int>(new int[] { _MULTIPLIER_, _MUL_LIST_ }));
-                //14
-                rules.Add(new List<int>(new int[] { _MUL_INSTR_, _MULTIPLIER_, _MUL_LIST_ }));
-                //15
-                rules.Add(new List<int>(new int[] { _UNSIGNED_CONST_ }));
-                //16
-                rules.Add(new List<int>(new int[] { _COMPLEX_CONSTANT_ }));
-                //17
-                rules.Add(new List<int>(new int[] { _BUILT_IN_FUNC_ID_, _ACTUAL_ARGUMENTS_ }));
-                //18
-                rules.Add(new List<int>(new int[] { '(', _EXPRESSION_, ')' }));
-                //19
-                rules.Add(new List<int>(new int[] { '-', _MULTIPLIER_ }));
-                //20
-                rules.Add(new List<int>(new int[] { '^', _MULTIPLIER_ }));
-                //21
-                rules.Add(new List<int>(new int[] { _VARIABLE_ }));
-                //22
-                rules.Add(new List<int>(new int[] { _VARIABLE_ID_ }));
-                //23
-                rules.Add(new List<int>(new int[] { _COMPLEX_VARIABLE_ }));
-                //24
-                rules.Add(new List<int>(new int[] { _DIMENSION_ }));
-                //25
-                rules.Add(new List<int>(new int[] { '"', _COMPLEX_NUMBER_, '"' }));
-                //26
-                rules.Add(new List<int>(new int[] { '[', _EXPRESSION_, _EXP_LIST_, ']' }));
-                //27
-                rules.Add(new List<int>(new int[] { ',', _EXPRESSION_, _EXP_LIST_ }));
-                //28
-                rules.Add(new List<int>(new int[] { '\'', _COMPLEX_NUMBER_, '\'' }));
-                //29
-                rules.Add(new List<int>(new int[] { _UNSIGNED_NUM_ }));
-                //30
-                rules.Add(new List<int>(new int[] { _LEFT_PART_, _RIGHT_PART_ }));
-                //31
-                rules.Add(new List<int>(new int[] { _EXPRESSION_ }));
-                //32
-                rules.Add(new List<int>(new int[] { ',', _EXPRESSION_ }));
-                //33
-                rules.Add(new List<int>(new int[] { KWTable.GetKey("$EXP"), '(', _EXPRESSION_, ')' }));
-                //34
-                rules.Add(new List<int>(new int[] { '(', _ARGUMENT_LIST_, ')' }));
-                //35
-                rules.Add(new List<int>(new int[] { _ID_ }));
-                //36
-                rules.Add(new List<int>(new int[] { _INTEGER_ }));
-                //37
-                rules.Add(new List<int>(new int[] { _REAL_ }));
-
-
-                //40
-                //rules.Add(new List<int>(new int[] { list[index] }));
-                //41
-                //rules.Add(null);
-            }
-            return rules[index];
-        }
-
         public static void SetTables(Concrete.TableSpace.Table[] tables) {
             //set all tables
 			if(tables.Length != 4)
@@ -203,8 +110,8 @@ namespace Concrete.Syntactycal {
             else if (item >= 1001)
                 return IDTable[(ushort)item];
             if (nonterminals == null) {
-                nonterminals = new SortedList<int, string>() {
-                    [_PROGRAM_] = "<program",
+                nonterminals = new SortedList<int, string> {
+                    [_PROGRAM_] = "<program>",
                     [_BLOCK_] = "<block>",
                     [_PID_] = "<procedure ID>",
                     [_ID_] = "<identifier>",
@@ -245,69 +152,69 @@ namespace Concrete.Syntactycal {
             return nonterminals[item];
 		}
 
-		public static bool Start(List<int> _list, TextBox textBox = null) {
+        public static bool Start(List<int> _list, TextBox textBox = null) {
             // start point
-			if(_list.Contains(-1))
-				throw new ArrayTypeMismatchException("Wrong parsed list");
+            if (_list.Contains(-1))
+                throw new ArrayTypeMismatchException("Wrong parsed list");
 
-			list = new List<int>(_list);
+            list = new List<int>(_list);
 
             tree = new TreeNode();
 
-			index = 0;
-
-            indents = "";
+            index = 0;
 
             textTree = textBox;
-            
-			if(SignalProgram()) {
-				PrintTree(tree);
-				return true;
-			}
-			return false;
-		}
 
-		static void PrintTree(TreeNode node = null) {
+            if (SignalProgram()) {
+                indents = new StringBuilder("");
+                PrintTree(tree);
+                return true;
+            }
+            return false;
+        }
+
+        static void PrintTree(TreeNode node = null) {
             if(textTree != null && node != null) {
-                if (makeIndents) {
-                    textTree.Text += indents + "{\n";
-                    indents += '\t';
-                } else {
+                if (!makeIndents) {
                     textTree.Text += " { ";
+                } else {
+                    textTree.Text += indents + "{\n";
                 }
                 if (node.node != null) {
                     for(int i = 0; i < node.node.Count; i++) {
-                        if (makeIndents)
+                        if (makeIndents) {
                             textTree.Text += indents + GetString(node.node[i]) + '\n';
-                        else
+                            indents.Append("\t");
+                            PrintTree(node.childs[i]);
+                            indents.Remove(0, 1);
+                        }
+                        else {
                             textTree.Text += GetString(node.node[i]) + ' ';
-                        PrintTree(node.childs[i]);
+                            PrintTree(node.childs[i]);
+                        }
                     }
                 }
-                if (makeIndents) {
-                    indents = indents.Remove(0, 1) ?? "";
-                    textTree.Text += indents + "}\n";
-                } else {
+                if (!makeIndents) {
                     textTree.Text += " } ";
+                } else {
+                    textTree.Text += indents + "}\n";
                 }
             }
 		}
 
-		static void SetTree(TreeNode node, List<int> items, int ruleNum) {
+		static void SetTree(TreeNode node, List<int> items) {
             if (items != null) {
                 node.node = new List<int>(items);
                 node.childs = new List<TreeNode>(new TreeNode[items.Count]);
-                node.rule = ruleNum;
             } else {
                 node.node = null;
                 node.childs = null;
-                node.rule = rules.Count - 1;
             }
 		}
 
 		static bool SignalProgram() {
 //			 1.	<signal-program> --> <program>
-			SetTree(tree, GetRule(0), 0);
+			SetTree(tree, new List<int> { _PROGRAM_ });
 
 			TreeNode c0 = new TreeNode();
 			if(Program(c0)) {
@@ -320,7 +227,7 @@ namespace Concrete.Syntactycal {
 		static bool Program(TreeNode node) {
 //			2.	<program> --> PROGRAM <procedure-identifier> ;
 //			<block>.
-			SetTree(node, GetRule(1), 1);
+			SetTree(node, new List<int> { KWTable.GetKey("PROGRAM"), _PID_, ';', _BLOCK_, '.' });
 
 			TreeNode c1 = new TreeNode(), c3 = new TreeNode();
             if (list[index++] == KWTable.GetKey("PROGRAM") &&
@@ -337,7 +244,7 @@ namespace Concrete.Syntactycal {
 
 		static bool Block(TreeNode node) {
 //			3.	<block> --> BEGIN <conditional-expression> END
-			SetTree(node, GetRule(2), 2);
+			SetTree(node, new List<int> { KWTable.GetKey("BEGIN"), _COND_EX_, KWTable.GetKey("END") });
 
 			TreeNode c1 = new TreeNode();
 
@@ -353,7 +260,7 @@ namespace Concrete.Syntactycal {
 		static bool ConditionalExp(TreeNode node) {
 //			4.	<conditional-expression> --> <logical-summand>
 //			<logical>
-			SetTree(node, GetRule(3), 3);
+			SetTree(node, new List<int> { _LOG_SUMMAND_, _LOGICAL_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 			if(LogicalSummand(c0) &&
@@ -370,12 +277,12 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(4), 4);
+			SetTree(node, new List<int> { KWTable.GetKey("OR"), _LOG_SUMMAND_, _LOGICAL_ } );
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 			if(list[index++] != KWTable.GetKey("OR") || !LogicalSummand(c1) || !Logical(c2)) {
 				index = CopyIndex;
-                SetTree(node, null, rules.Count - 1);
+                SetTree(node, null);
 			} else {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
@@ -387,7 +294,7 @@ namespace Concrete.Syntactycal {
 		static bool LogicalSummand(TreeNode node) {
 //			6.	<logical-summand> --> <logical-multiplier>
 //			<logical-multipliers-list>
-			SetTree(node, GetRule(5), 5);
+			SetTree(node, new List<int> { _LOG_MULTIPLIER_, _LOG_MUL_LIST_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 			if(LogicalMultiplier(c0) &&
@@ -405,12 +312,12 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(6), 6);
+			SetTree(node, new List<int> { KWTable.GetKey("AND"), _LOG_MULTIPLIER_, _LOG_MUL_LIST_ });
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 			if(list[index++] != KWTable.GetKey("AND") || !LogicalMultiplier(c1) || !LogicalMulList(c2)) {
 				index = CopyIndex;
-                SetTree(node, null, rules.Count - 1);
+                SetTree(node, null);
 			} else {
 				node.childs[1] = c1;
 				node.childs[2] = c2;
@@ -431,7 +338,7 @@ namespace Concrete.Syntactycal {
             if (list[index] == '[') {
                 ++index;
 
-                SetTree(node, GetRule(7), 7);
+                SetTree(node, new List<int> { '[', _COND_EX_, ']' });
 
                 if (ConditionalExp(c1) && list[index++] == ']') {
                     node.childs[1] = c1;
@@ -441,7 +348,7 @@ namespace Concrete.Syntactycal {
             else if (list[index] == KWTable.GetKey("NOT")) {
                 ++index;
 
-                SetTree(node, GetRule(9), 9);
+                SetTree(node, new List<int> { KWTable.GetKey("NOT"), _LOG_MULTIPLIER_ });
 
                 if (LogicalMultiplier(c1)) {
                     node.childs[1] = c1;
@@ -450,7 +357,7 @@ namespace Concrete.Syntactycal {
             }
             index = CopyIndex;
 
-            SetTree(node, GetRule(8), 8);
+            SetTree(node, new List<int> { _EXPRESSION_, _COMP_OP_, _EXPRESSION_ });
 
 			if(Expression(c0) && ComparisonOperator(c1) && Expression(c2)) {
 				node.childs[0] = c0;
@@ -470,7 +377,7 @@ namespace Concrete.Syntactycal {
 //				<> |
 //				>= |
 //				>
-			SetTree(node, new List<int>(new int[] { list[index] }), 40);
+			SetTree(node, new List<int>{ list[index] });
 
 			if(list[index] == '<' ||
 			    list[index] == '=' ||
@@ -495,7 +402,7 @@ namespace Concrete.Syntactycal {
             if (list[index] == '-') {
                 ++index;
 
-                SetTree(node, GetRule(11), 11);
+                SetTree(node, new List<int> { '-', _SUMMAND_, _SUM_LIST_ });
 
                 if (Summand(c1) && SummandsList(c2)) {
                     node.childs[1] = c1;
@@ -505,7 +412,7 @@ namespace Concrete.Syntactycal {
             }
             index = CopyIndex;
 
-            SetTree(node, GetRule(10), 10);
+            SetTree(node, new List<int> { _SUMMAND_, _SUM_LIST_ });
 
             if (Summand(c0) && SummandsList(c1)) {
                 node.childs[0] = c0;
@@ -521,12 +428,12 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(12), 12);
+			SetTree(node, new List<int> { _ADD_INSTR_, _SUMMAND_, _SUM_LIST_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode(), c2 = new TreeNode();
 			if(!AddInstruction(c0) || !Summand(c1) || !SummandsList(c2)) {
 				index = CopyIndex;
-                SetTree(node, null, rules.Count - 1);
+                SetTree(node, null);
 			} else {
 				node.childs[0] = c0;
 				node.childs[1] = c1;
@@ -544,7 +451,7 @@ namespace Concrete.Syntactycal {
 //			|
 //			!
 //			|
-            SetTree(node, new List<int>(new int[] { list[index] }), 40);
+            SetTree(node, new List<int>{ list[index] });
 
 			if(list[index] == '+' ||
 			    list[index] == '-' ||
@@ -557,7 +464,7 @@ namespace Concrete.Syntactycal {
 
 		static bool Summand(TreeNode node) {
 //			13.	<summand> --> <multiplier><multipliers-list>
-			SetTree(node, GetRule(13), 13);
+			SetTree(node, new List<int> { _MULTIPLIER_, _MUL_LIST_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 			if(Multiplier(c0) &&
@@ -575,12 +482,12 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(14), 14);
+			SetTree(node, new List<int> { _MUL_INSTR_, _MULTIPLIER_, _MUL_LIST_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode(), c2 = new TreeNode();
 			if(!MultiplicationInstr(c0) || !Multiplier(c1) || !MultiplierList(c2)) {
 				index = CopyIndex;
-                SetTree(node, null, rules.Count - 1);
+                SetTree(node, null);
 			} else {
 				node.childs[0] = c0;
 				node.childs[1] = c1;
@@ -598,7 +505,7 @@ namespace Concrete.Syntactycal {
 //			&
 //			|
 //			MOD
-            SetTree(node, new List<int>(new int[] { list[index] }), 40);
+            SetTree(node, new List<int>{ list[index] });
 
 			if(list[index] == '*' ||
 			   list[index] == '/' ||
@@ -622,7 +529,7 @@ namespace Concrete.Syntactycal {
 //			^ <multiplier>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(15), 15);
+			SetTree(node, new List<int> { _UNSIGNED_CONST_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -633,7 +540,7 @@ namespace Concrete.Syntactycal {
 
 			index = CopyIndex;
 
-			SetTree(node, GetRule(16), 16);
+			SetTree(node, new List<int> { _COMPLEX_CONSTANT_ });
 
 			if(ComplexConstant(c0)) {
 				node.childs[0] = c0;
@@ -642,7 +549,7 @@ namespace Concrete.Syntactycal {
 
             index = CopyIndex;
 
-            SetTree(node, GetRule(17), 17);
+            SetTree(node, new List<int> { _BUILT_IN_FUNC_ID_, _ACTUAL_ARGUMENTS_ });
 
             if (BuiltInFuncID(c0) && ActualArguments(c1)) {
                 node.childs[0] = c0;
@@ -652,7 +559,7 @@ namespace Concrete.Syntactycal {
 
 			index = CopyIndex;
 
-			SetTree(node, GetRule(18), 18);
+			SetTree(node, new List<int> { '(', _EXPRESSION_, ')' });
 
 			if(list[index++] == '(' && Expression(c1) && list[index++] == ')') {
 				node.childs[1] = c1;
@@ -660,7 +567,7 @@ namespace Concrete.Syntactycal {
 			}
 			index = CopyIndex;
 
-			SetTree(node, GetRule(19), 19);
+			SetTree(node, new List<int> { '-', _MULTIPLIER_ });
 
 			if(list[index++] == '-' && Multiplier(c1)) {
 				node.childs[1] = c1;
@@ -668,7 +575,7 @@ namespace Concrete.Syntactycal {
 			}
 			index = CopyIndex;
 
-			SetTree(node, GetRule(20), 20);
+			SetTree(node, new List<int> { '^', _MULTIPLIER_ });
 
 			if(list[index++] == '^' && Multiplier(c1)) {
 				node.childs[1] = c1;
@@ -676,7 +583,7 @@ namespace Concrete.Syntactycal {
 			}
             index = CopyIndex;
 
-            SetTree(node, GetRule(21), 21);
+            SetTree(node, new List<int> { _VARIABLE_ });
 
             if(Variable(c0)) {
                 node.childs[0] = c0;
@@ -692,7 +599,7 @@ namespace Concrete.Syntactycal {
 //			<complex-variable>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(22), 22);
+			SetTree(node, new List<int> { _VARIABLE_ID_ });
 
 			TreeNode c0 = new TreeNode();
 
@@ -702,7 +609,7 @@ namespace Concrete.Syntactycal {
 			}
 
 			index = CopyIndex;
-			SetTree(node, GetRule(23), 23);
+			SetTree(node, new List<int> { _COMPLEX_VARIABLE_ });
 
 			if(ComplexVariable(c0)) {
 				node.childs[0] = c0;
@@ -711,7 +618,7 @@ namespace Concrete.Syntactycal {
 
             index = CopyIndex;
 
-            SetTree(node, GetRule(24), 24);
+            SetTree(node, new List<int> { _DIMENSION_ });
 
             if(Dimension(c0)) {
                 node.childs[0] = c0;
@@ -722,7 +629,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ComplexVariable(TreeNode node) {
 //			18.	<complex-variable> --> "<complex-number>"
-			SetTree(node, GetRule(25), 25);
+			SetTree(node, new List<int> { '"', _COMPLEX_NUMBER_, '"' });
 
 			TreeNode c1 = new TreeNode();
 
@@ -741,19 +648,19 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(26), 26);
+			SetTree(node, new List<int> { '[', _EXPRESSION_, _EXP_LIST_, ']' } );
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 
-			if(list[index++] == '[' && Expression(c1) &&
-			    ExpressionList(c2) && list[index++] == ']') {
-				node.childs[1] = c1;
-				node.childs[2] = c2;
-				return true;
-			}
-
-			index = CopyIndex;
-            SetTree(node, null, rules.Count - 1);
+            if (list[index++] == '[' && Expression(c1) &&
+                ExpressionList(c2) && list[index++] == ']') {
+                node.childs[1] = c1;
+                node.childs[2] = c2;
+            }
+            else {
+                index = CopyIndex;
+                SetTree(node, null);
+            }
 
             return true;
 		}
@@ -764,24 +671,25 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(27), 27);
+			SetTree(node, new List<int> { ',', _EXPRESSION_, _EXP_LIST_ });
 
 			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
 
-			if(list[index++] == ',' && Expression(c1) && ExpressionList(c2)) {
-				node.childs[1] = c1;
-				node.childs[2] = c2;
-				return true;
-			}
-			index = CopyIndex;
-            SetTree(node, null, rules.Count - 1);
+            if (list[index++] == ',' && Expression(c1) && ExpressionList(c2)) {
+                node.childs[1] = c1;
+                node.childs[2] = c2;
+            }
+            else {
+                index = CopyIndex;
+                SetTree(node, null);
+            }
 
             return true;
 		}
 
 		static bool ComplexConstant(TreeNode node) {
 //			21.	<complex-constant> --> '<complex-number>'
-			SetTree(node, GetRule(28), 28);
+			SetTree(node, new List<int> { '\'', _COMPLEX_NUMBER_, '\'' });
 
 			TreeNode c1 = new TreeNode();
 
@@ -796,7 +704,7 @@ namespace Concrete.Syntactycal {
 
 		static bool UnsignedConstant(TreeNode node) {
 //			22.	<unsigned-constant> --> <unsigned-number>
-			SetTree(node, GetRule(29), 29);
+			SetTree(node, new List<int> { _UNSIGNED_NUM_ });
 
 			TreeNode c0 = new TreeNode();
 
@@ -809,7 +717,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ComplexNumber(TreeNode node) {
 //			23.	<complex-number> --> <left-part> <right-part>
-			SetTree(node, GetRule(30), 30);
+			SetTree(node, new List<int> { _LEFT_PART_, _RIGHT_PART_ });
 
 			TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -826,7 +734,7 @@ namespace Concrete.Syntactycal {
 //			<empty>
 			int CopyIndex = index;
 
-			SetTree(node, GetRule(31), 31);
+			SetTree(node, new List<int> { _EXPRESSION_ });
 
 			TreeNode c0 = new TreeNode();
 
@@ -835,7 +743,7 @@ namespace Concrete.Syntactycal {
             }
             else {
                 index = CopyIndex;
-                SetTree(node, null, rules.Count - 1);
+                SetTree(node, null);
             }
 
             return true;
@@ -853,7 +761,7 @@ namespace Concrete.Syntactycal {
             if (list[index] == ',') {
                 ++index;
 
-                SetTree(node, GetRule(32), 32);
+                SetTree(node, new List<int> { ',', _EXPRESSION_ });
 
                 if (Expression(c1)) {
                     node.childs[1] = c1;
@@ -863,7 +771,7 @@ namespace Concrete.Syntactycal {
             else if (list[index] == KWTable.GetKey("$EXP")) {
                 ++index;
 
-                SetTree(node, GetRule(33), 33);
+                SetTree(node, new List<int> { KWTable.GetKey("$EXP"), '(', _EXPRESSION_, ')' });
 
                 if (list[index++] == '(' &&
                 Expression(c1) &&
@@ -874,14 +782,14 @@ namespace Concrete.Syntactycal {
             }
             index = CopyIndex;
 
-            SetTree(node, null, rules.Count - 1);
+            SetTree(node, null);
 
             return true;
         }
 
         static bool ActualArguments(TreeNode node) {
             //26. <actual arguments> --> ( <argument-list> )
-            SetTree(node, GetRule(34), 34);
+            SetTree(node, new List<int> { '(', _ARGUMENT_LIST_, ')' });
 
             TreeNode c1 = new TreeNode();
 
@@ -896,7 +804,7 @@ namespace Concrete.Syntactycal {
 
 		static bool VariableID(TreeNode node) {
 //			27.	<variable-identifier> --> <identifier>
-			SetTree(node, GetRule(35), 35);
+			SetTree(node, new List<int> { _ID_ });
 
 			TreeNode c0 = new TreeNode();
 
@@ -917,7 +825,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ProcedureID(TreeNode node) {
 //			28.	<procedure-identifier> --> <identifier>
-			SetTree(node, GetRule(35), 35);
+			SetTree(node, new List<int> { _ID_ });
 
 			TreeNode c0 = new TreeNode();
 			if(!ID(c0) ||
@@ -936,7 +844,7 @@ namespace Concrete.Syntactycal {
             //<empty>
             int CopyIndex = index;
 
-            SetTree(node, GetRule(34), 34);
+            SetTree(node, new List<int> { _UNSIGNED_NUM_, _ARGUMENT_LIST_ });
 
             TreeNode c0 = new TreeNode(), c1 = new TreeNode();
 
@@ -946,14 +854,14 @@ namespace Concrete.Syntactycal {
                 node.childs[1] = c1;
             } else {
                 index = CopyIndex;
-                SetTree(node, null, rules.Count - 1);
+                SetTree(node, null);
             }
             return true;
         }
 
         static bool BuiltInFuncID(TreeNode node) {
             // 30.  <builtin-function-identifier> --> <identifier>
-            SetTree(node, GetRule(35), 35);
+            SetTree(node, new List<int> { _ID_ });
 
             TreeNode c0 = new TreeNode();
 
@@ -975,10 +883,10 @@ namespace Concrete.Syntactycal {
             TreeNode c0 = new TreeNode();
 
             if (Integer(c0)) {
-                SetTree(node, GetRule(36), 36);
+                SetTree(node, new List<int> { _INTEGER_ });
             }
             else if (Real(c0)) {
-                SetTree(node, GetRule(37), 37);
+                SetTree(node, new List<int> { _REAL_ });
             }
             else
                 return false;
@@ -991,14 +899,14 @@ namespace Concrete.Syntactycal {
 
         static bool Integer(TreeNode node) {
             // check for integer number
-            SetTree(node, new List<int>(new int[] { list[index] }), 40);
+            SetTree(node, new List<int>{ list[index] });
 
             return list[index] >= 501 && list[index] <= 1000 && CTable.GetType((ushort)list[index]) == ConstantsTable.States.INTEGER;
         }
 
         static bool Real(TreeNode node) {
             // check for real number
-            SetTree(node, new List<int>(new int[] { list[index] }), 40);
+            SetTree(node, new List<int>{ list[index] });
 
             return list[index] >= 501 && list[index] <= 1000 && CTable.GetType((ushort)list[index]) == ConstantsTable.States.REAL;
         }
@@ -1008,7 +916,7 @@ namespace Concrete.Syntactycal {
             // - |
             // <empty>
 			if(list[index] == '+' || list[index] == '-') {
-                SetTree(node, new List<int>(new int[] { list[index] }), 40);
+                SetTree(node, new List<int>{ list[index] });
 				++index;
 			}
 			return true;
@@ -1016,7 +924,7 @@ namespace Concrete.Syntactycal {
 
 		static bool ID(TreeNode node) {
 //			check for terminal ID
-            SetTree(node, new List<int>(new int[] { list[index] }), 40);
+            SetTree(node, new List<int>{ list[index] });
 
 			return list[index] >= 1001;
 		}
