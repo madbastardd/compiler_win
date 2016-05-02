@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using Interfaces.TableSpace;
 using System.Windows.Controls;
 using System.Linq;
+using System.Collections;
 
 namespace Concrete.TableSpace {
     /// <summary>
     /// class includes dictionary, that has unique keys and unique values
     /// </summary>
-    public abstract class Table : ITable {
-		protected SortedDictionary<ushort, string> data;
+    public abstract class Table : ITable, IEnumerable<KeyValuePair<ushort, string>> {
+        protected SortedDictionary<ushort, string> data;
 		protected ushort CurrentIndex;
 
 		public Table(ushort index = 0) {
@@ -71,5 +72,13 @@ namespace Concrete.TableSpace {
 				textView.Text += String.Format ("{0}:{1}\n", item.Key, item.Value);
 			}
 		}
+
+        public IEnumerator<KeyValuePair<ushort, string>> GetEnumerator() {
+            return data.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return data.GetEnumerator();
+        }
     }
 }

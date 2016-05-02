@@ -43,6 +43,12 @@ namespace Concrete.Syntactycal {
 
         static TreeNode tree;  //tree
 
+        static public TreeNode Tree {
+            get {
+                return tree;
+            }
+        }
+
         static StringBuilder indents;  //tab
 
         static bool makeIndents = true; //true - with indents
@@ -50,7 +56,7 @@ namespace Concrete.Syntactycal {
         static SortedList<int, string> nonterminals;
 
         //nonterminals
-        static readonly int _PROGRAM_ = -1,
+        static public readonly int _PROGRAM_ = -1,
             _BLOCK_ = -2,
             _PID_ = -3,
             _ID_ = -4,

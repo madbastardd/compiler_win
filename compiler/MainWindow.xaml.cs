@@ -13,6 +13,7 @@ using System.Windows;
 using Concrete.Syntactycal;
 using MahApps.Metro.Controls;
 using System.IO;
+using Concrete.CodeGeneratorSpace;
 
 namespace compiler {
     /// <summary>
@@ -60,17 +61,18 @@ namespace compiler {
 
                 SyntacticalParser.SetTables(tables);
 
-                bool Parsed = SyntacticalParser.Start(new List<int>(from p in list select p.code), syntacticalWindow.textBox1);
-
-                syntacticalWindow.Show();
-
-                if (Parsed) {
+                if (SyntacticalParser.Start(new List<int>(list.Select(p => p.code)), syntacticalWindow.textBox1)) {
                     using (System.IO.StreamWriter file = new System.IO.StreamWriter(textFile.Split('.')[0] + ".ddt"))
                         file.WriteLine(SyntacticalParser.TextTree);
+
+                    CodeGenerator.SetTables(tables);
+                    CodeGenerator.CreateCode(SyntacticalParser.Tree);
                 }
                 else {
                     syntacticalWindow.textBox1.Text = "Error in line " + list[SyntacticalParser.Index].line + ", position " + list[SyntacticalParser.Index].pos;
                 }
+
+                syntacticalWindow.Show();
             }
             catch (FileNotFoundException) {
                 this.textBlock5.Text = "File not found";
