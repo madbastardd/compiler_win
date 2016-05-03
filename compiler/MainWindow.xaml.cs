@@ -20,7 +20,8 @@ namespace compiler {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow {
-        SyntacticalWindow syntacticalWindow = new SyntacticalWindow();
+        TextWindow syntacticalWindow = null;
+        TextWindow assemblerCode = null;
 
         public MainWindow() {
             InitializeComponent();
@@ -57,7 +58,7 @@ namespace compiler {
 
                 this.textBlock5.Text += "\nParsed for " + sw.ElapsedMilliseconds + " milliseconds";
 
-                syntacticalWindow = new SyntacticalWindow();
+                syntacticalWindow = new TextWindow();
 
                 SyntacticalParser.SetTables(tables);
 
@@ -66,13 +67,25 @@ namespace compiler {
                         file.WriteLine(SyntacticalParser.TextTree);
 
                     CodeGenerator.SetTables(tables);
-                    CodeGenerator.CreateCode(SyntacticalParser.Tree);
+
+                    assemblerCode = new TextWindow();
+
+                    if (CodeGenerator.CreateCode(SyntacticalParser.Tree))
+                        try {
+                            using (StreamWriter sw1 = new StreamWriter(textFile.Split('.')[0] + ".asm"))
+                                sw1.Write(CodeGenerator.Code);
+                        }
+                        catch (FileNotFoundException) {
+
+                        }
+                    CodeGenerator.ShowInTextView(assemblerCode.textBox1);
                 }
                 else {
                     syntacticalWindow.textBox1.Text = "Error in line " + list[SyntacticalParser.Index].line + ", position " + list[SyntacticalParser.Index].pos;
                 }
 
                 syntacticalWindow.Show();
+                assemblerCode.Show();
             }
             catch (FileNotFoundException) {
                 this.textBlock5.Text = "File not found";

@@ -17,8 +17,8 @@ namespace compiler {
     /// <summary>
     /// Interaction logic for SyntacticalWindow.xaml
     /// </summary>
-    public partial class SyntacticalWindow : MetroWindow {
-        public SyntacticalWindow() {
+    public partial class TextWindow : MetroWindow {
+        public TextWindow() {
             InitializeComponent();
         }
     }

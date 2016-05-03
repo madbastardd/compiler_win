@@ -622,14 +622,14 @@ namespace Concrete.Syntactycal {
 				return true;
 			}
 
-            index = CopyIndex;
+            //index = CopyIndex;
 
-            SetTree(node, new List<int> { _DIMENSION_ });
+            //SetTree(node, new List<int> { _DIMENSION_ });
 
-            if(Dimension(c0)) {
-                node.childs[0] = c0;
-                return true;
-            }
+            //if(Dimension(c0)) {
+            //    node.childs[0] = c0;
+            //    return true;
+            //}
             return false;
 		}
 
