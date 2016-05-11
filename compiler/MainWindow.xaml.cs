@@ -14,6 +14,7 @@ using Concrete.Syntactycal;
 using MahApps.Metro.Controls;
 using System.IO;
 using Concrete.CodeGeneratorSpace;
+using Microsoft.Win32;
 
 namespace compiler {
     /// <summary>
@@ -98,6 +99,15 @@ namespace compiler {
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             App.Current.Shutdown();
+        }
+
+        private void textBlock7_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == true)
+                textBlock7.Text = openFileDialog.FileName;
+            else
+                textBlock7.Text = "";
         }
     }
 }

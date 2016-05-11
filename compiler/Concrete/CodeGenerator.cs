@@ -53,7 +53,9 @@ namespace Concrete.CodeGeneratorSpace {
         static public bool CreateCode(TreeNode tree) {
             labelCounter = 0;
 
-            code = "model small, c";
+            code = ".586";
+
+            code += "\n.model small, c";
 
             code += "\n\n.data";
 
@@ -82,7 +84,7 @@ namespace Concrete.CodeGeneratorSpace {
 
             code += program;
 
-            code += "\n\t\tMOV AX 4C00h";
+            code += "\n\t\tMOV AX, 4C00h";
             code += "\n\t\tINT 21h";
             code += "\n\tend ?main";
             code += "\nend";
@@ -442,7 +444,7 @@ namespace Concrete.CodeGeneratorSpace {
 
                 functionToCall = ChooseFunction(tree.childs[0]);
 
-                result += "\n\t\t" + functionToCall + " AX";
+                result += "\n\t\t" + functionToCall;
 
                 result += "\n\t\tPOP AX";
 
