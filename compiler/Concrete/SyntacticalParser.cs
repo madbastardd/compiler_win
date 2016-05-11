@@ -78,19 +78,18 @@ namespace Concrete.Syntactycal {
             _COMPLEX_NUMBER_ = -20,
             _VARIABLE_ = -21,
             _VARIABLE_ID_ = -22,
-            _DIMENSION_ = -23,
-            _COMPLEX_VARIABLE_ = -24,
-            _UNSIGNED_CONST_ = -25,
-            _UNSIGNED_NUM_ = -26,
-            _RIGHT_PART_ = -27,
-            _LEFT_PART_ = -28,
-            _EXP_LIST_ = -29,
-            _INTEGER_ = -30,
-            _REAL_ = -31,
-            _SIGN_ = -32,
-            _ACTUAL_ARGUMENTS_ = -33,
-            _ARGUMENT_LIST_ = -34, 
-            _BUILT_IN_FUNC_ID_ = -35;
+            _COMPLEX_VARIABLE_ = -23,
+            _UNSIGNED_CONST_ = -24,
+            _UNSIGNED_NUM_ = -25,
+            _RIGHT_PART_ = -26,
+            _LEFT_PART_ = -27,
+            _EXP_LIST_ = -28,
+            _INTEGER_ = -29,
+            _REAL_ = -30,
+            _SIGN_ = -31,
+            _ACTUAL_ARGUMENTS_ = -32,
+            _ARGUMENT_LIST_ = -33, 
+            _BUILT_IN_FUNC_ID_ = -34;
 
         public static void SetTables(Concrete.TableSpace.Table[] tables) {
             //set all tables
@@ -139,7 +138,6 @@ namespace Concrete.Syntactycal {
                     [_COMPLEX_NUMBER_] = "<complex number>",
                     [_VARIABLE_] = "<variable>",
                     [_VARIABLE_ID_] = "<variable ID>",
-                    [_DIMENSION_] = "<dimension>",
                     [_COMPLEX_VARIABLE_] = "<complex variable>",
                     [_UNSIGNED_CONST_] = "<unsigned const>",
                     [_UNSIGNED_NUM_] = "<unsigned number>",
@@ -621,15 +619,6 @@ namespace Concrete.Syntactycal {
 				node.childs[0] = c0;
 				return true;
 			}
-
-            //index = CopyIndex;
-
-            //SetTree(node, new List<int> { _DIMENSION_ });
-
-            //if(Dimension(c0)) {
-            //    node.childs[0] = c0;
-            //    return true;
-            //}
             return false;
 		}
 
@@ -646,29 +635,6 @@ namespace Concrete.Syntactycal {
 				return true;
 			}
 			return false;
-		}
-
-		static bool Dimension(TreeNode node) {
-//			19.	<dimension> -->[<expression><expressions-
-//				list>]|
-//			<empty>
-			int CopyIndex = index;
-
-			SetTree(node, new List<int> { '[', _EXPRESSION_, _EXP_LIST_, ']' } );
-
-			TreeNode c1 = new TreeNode(), c2 = new TreeNode();
-
-            if (list[index++] == '[' && Expression(c1) &&
-                ExpressionList(c2) && list[index++] == ']') {
-                node.childs[1] = c1;
-                node.childs[2] = c2;
-            }
-            else {
-                index = CopyIndex;
-                SetTree(node, null);
-            }
-
-            return true;
 		}
 
 		static bool ExpressionList(TreeNode node) {

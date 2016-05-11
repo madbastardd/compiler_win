@@ -3,7 +3,7 @@ BEGIN
 	0 > 1 AND 2 < 3 AND
 	4 < 5 OR 6 > a AND
 	(5 + 30) <= tmp * 20 AND num * 3 MOD some > 3 OR
-	NOT 3#2 < 1#4 AND
+	NOT 3#-5 < 1#4 AND
 	4 > 4 AND
 	a > -b OR ^c < a AND
 	SIN(1) + COS(5 6 7) <> SIN(2) OR

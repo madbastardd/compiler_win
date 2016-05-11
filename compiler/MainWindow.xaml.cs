@@ -84,6 +84,7 @@ namespace compiler {
                     syntacticalWindow.textBox1.Text = "Error in line " + list[SyntacticalParser.Index].line + ", position " + list[SyntacticalParser.Index].pos;
                 }
 
+                assemblerCode.Title = "Assembler";
                 syntacticalWindow.Show();
                 assemblerCode.Show();
             }

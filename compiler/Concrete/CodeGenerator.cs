@@ -71,11 +71,11 @@ namespace Concrete.CodeGeneratorSpace {
             try {
                 program = Program(tree.childs[0]);
             }
-            catch (IncorrectTypeException ex) {
+            catch (IncorrectTypeException) {
                 code = "Incorrect type";
                 return false;
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 code = "Error";
                 return false;
             }
@@ -125,9 +125,9 @@ namespace Concrete.CodeGeneratorSpace {
             result += Logical(tree.childs[1], reg, out type1);
             result += LogicalSummand(tree.childs[0], "AX", out type2);
 
-            //if (type1 != type2)
-            //    throw new IncorrectTypeException();
-            
+            if (type1 != type2)
+                throw new IncorrectTypeException();
+
             result += "\n\t\tOR AX, " + reg;
             result += "\n\t\tAND AX, 1";
             result += "\n\t\tMOV " + reg + ", AX";
@@ -145,11 +145,9 @@ namespace Concrete.CodeGeneratorSpace {
             if (type1 != Type.INTEGER && type1 != type2)
                 throw new IncorrectTypeException();
 
-            //result += "\n\t\tPUSH AX";
             result += "\n\t\tAND BX, ?LM";
             result += "\n\t\tAND BX, 1";
             result += "\n\t\tMOV " + reg + ", BX";
-            //result += "\n\t\tPOP AX";
 
             type = Type.INTEGER;
             return result;
@@ -169,11 +167,9 @@ namespace Concrete.CodeGeneratorSpace {
             if (type1 != Type.INTEGER && type1 != type2)
                 throw new IncorrectTypeException();
 
-            //result += "\n\t\tPUSH AX";
             result += "\n\t\tOR AX, " + reg;
             result += "\n\t\tAND AX, 1";
             result += "\n\t\tMOV " + reg + ", AX";
-            //result += "\n\t\tPOP AX";
 
             return result;
         }
@@ -217,7 +213,6 @@ namespace Concrete.CodeGeneratorSpace {
 
             string cmpOperator = ChooseComparisonOperator(tree.childs[1]);
 
-            //result += "\n\t\tPUSH AX";
             result += "\n\t\tMOV CX, ?EXP1";
             result += "\n\t\tCMP CX, ?EXP2";
             result += "\n\t\t" + cmpOperator + " ?L" + (labelCounter++);
@@ -262,10 +257,8 @@ namespace Concrete.CodeGeneratorSpace {
             if (type1 != Type.INTEGER && type1 != type2)
                 throw new IncorrectTypeException();
 
-            //result += "\n\t\tPUSH BX";
             result += "\n\t\tAND BX, " + reg;
             result += "\n\t\tMOV " + reg + ", BX";
-            //result += "\n\t\tPOP BX";
 
             return result;
         }
@@ -442,11 +435,16 @@ namespace Concrete.CodeGeneratorSpace {
                 return Variable(tree.childs[0], reg, out type);
             if (tree.node[0] == SyntacticalParser._BUILT_IN_FUNC_ID_) {
                 int countParameters = 1;
+
+                result += "\n\t\tPUSH AX";
+
                 result += ActualArguments(tree.childs[1].childs[1], "AX", ref countParameters, out type);
 
                 functionToCall = ChooseFunction(tree.childs[0]);
 
                 result += "\n\t\t" + functionToCall + " AX";
+
+                result += "\n\t\tPOP AX";
 
                 type = Type.REAL;
                 return result;
@@ -468,7 +466,7 @@ namespace Concrete.CodeGeneratorSpace {
         }
 
         private static string ChooseFunction(TreeNode tree) {
-            if (tree.node[0] == IDTable.GetKey("SIN"))
+            if (tree.childs[0].node[0] == IDTable.GetKey("SIN"))
                 return "FSIN";
             return "FCOS";
         }
