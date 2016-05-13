@@ -34,8 +34,8 @@ namespace Concrete.AttributeClassSpace {
                 } else if (ind == '#') {
                     attributes.Add((UInt16)(HASHTAG));
                 } else if (ind == ':' || ind == ';' || ind == '=' || ind == ',' || ind == '!'
-				           || ind == '/' || ind == '&' || ind == '^'
-				           || ind == '[' || ind == ']' || ind == '\'' || ind == '"' || ind == '.'
+				           || ind == '/' || ind == '&' || ind == '^' 
+                           || ind == '\'' || ind == '"' || ind == '.'
 				           || ind == '<' || ind == '>') {
 					//separators
 					attributes.Add ((UInt16)(SEPARATOR));

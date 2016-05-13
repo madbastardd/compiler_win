@@ -1106,6 +1106,104 @@
 									}
 								<logical multiplier list>
 									{
+									AND
+									<logical multiplier>
+										{
+										<expression>
+											{
+											<summand>
+												{
+												<multiplier>
+													{
+													ABS
+													(
+													<expression>
+														{
+														-
+														<summand>
+															{
+															<multiplier>
+																{
+																<unsigned const>
+																	{
+																	<unsigned number>
+																		{
+																		<integer>
+																			{
+																			3
+																			}
+																		}
+																	}
+																}
+															<multiplier list>
+																{
+																}
+															}
+														<summand list>
+															{
+															}
+														}
+													)
+													}
+												<multiplier list>
+													{
+													}
+												}
+											<summand list>
+												{
+												}
+											}
+										<comparison operator>
+											{
+											>
+											}
+										<expression>
+											{
+											<summand>
+												{
+												<multiplier>
+													{
+													ABS
+													(
+													<expression>
+														{
+														<summand>
+															{
+															<multiplier>
+																{
+																<unsigned const>
+																	{
+																	<unsigned number>
+																		{
+																		<integer>
+																			{
+																			3
+																			}
+																		}
+																	}
+																}
+															<multiplier list>
+																{
+																}
+															}
+														<summand list>
+															{
+															}
+														}
+													)
+													}
+												<multiplier list>
+													{
+													}
+												}
+											<summand list>
+												{
+												}
+											}
+										}
+									<logical multiplier list>
+										{
+										}
 									}
 								}
 							<logical>

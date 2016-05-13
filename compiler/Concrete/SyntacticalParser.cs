@@ -528,6 +528,7 @@ namespace Concrete.Syntactycal {
 //			<builtin-function-identifier><actual-
 //			arguments> |
 //			( <expression> ) |
+//          ABS( <expression> ) |
 //			- <multiplier>
 //			|
 //			^ <multiplier>
@@ -569,7 +570,17 @@ namespace Concrete.Syntactycal {
 				node.childs[1] = c1;
 				return true;
 			}
-			index = CopyIndex;
+
+            index = CopyIndex;
+
+            SetTree(node, new List<int> { KWTable.GetKey("ABS"), '(', _EXPRESSION_, ')' });
+
+            if (list[index++] == KWTable.GetKey("ABS") && list[index++] == '(' && Expression(c1) && list[index++] == ')') {
+                node.childs[2] = c1;
+                return true;
+            }
+
+            index = CopyIndex;
 
 			SetTree(node, new List<int> { '-', _MULTIPLIER_ });
 

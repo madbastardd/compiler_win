@@ -451,6 +451,15 @@ namespace Concrete.CodeGeneratorSpace {
                 type = Type.REAL;
                 return result;
             }
+            if (tree.node[0] == KWTable.GetKey("ABS")) {
+                result += Expression(tree.childs[2], reg, out type);
+
+                result += "\n\t\tMOV DX, " + reg;
+                result += "\n\t\tAND DX, 7FFF";
+                result += "\n\t\tMOV " + reg + ", DX";
+
+                return result;
+            }
             if (tree.node[0] == '(')
                 return Expression(tree.childs[1], reg, out type);
             if (tree.node[0] == '-') {
